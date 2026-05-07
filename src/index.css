@@ -152,3 +152,10 @@ ul {
   50% { transform: translateX(0); }
   75% { transform: translateX(3px); }
 }
+
+@keyframes arrowBounceDown {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(3px); }
+  50% { transform: translateY(0); }
+  75% { transform: translateY(3px); }
+}

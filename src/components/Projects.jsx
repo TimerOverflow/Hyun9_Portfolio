@@ -47,12 +47,55 @@ const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
   );
 };
 
+// 아코디언 헤더 컴포넌트 (호버 + 바운스 + 배지)
+const AccordionHeader = ({ project, isOpen, onClick, everOpenedAccordion }) => {
+  const [hovered, setHovered] = useState(false);
+
+  const arrowAnimation = isOpen
+    ? 'none'
+    : !everOpenedAccordion
+      ? 'arrowBounceDown 0.8s ease infinite'
+      : 'arrowPulse 2.5s ease-in-out infinite';
+
+  return (
+    <button
+      style={{
+        ...styles.accordionHeader,
+        background: hovered ? 'var(--bg-secondary)' : 'transparent',
+      }}
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <div style={styles.headerLeft}>
+        <h3 style={{ margin: 0, fontSize: '1.25rem' }}>{project.title}</h3>
+        <span style={styles.period}>{project.period}</span>
+      </div>
+      <div style={styles.headerRight}>
+        <span style={styles.role}>{project.role}</span>
+        {!isOpen && (
+          <span style={styles.accordionBadge}>
+            펼쳐보기
+          </span>
+        )}
+        <span style={{
+          transition: 'transform 0.3s',
+          transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+          animation: arrowAnimation,
+        }}>▼</span>
+      </div>
+    </button>
+  );
+};
+
 const Projects = () => {
   const [openId, setOpenId] = useState(null);
   const [openToggles, setOpenToggles] = useState({});
   const [everOpened, setEverOpened] = useState(false);
+  const [everOpenedAccordion, setEverOpenedAccordion] = useState(false);
 
   const toggleAccordion = (id) => {
+    if (!everOpenedAccordion) setEverOpenedAccordion(true);
     setOpenId(openId === id ? null : id);
   };
 
@@ -84,22 +127,12 @@ const Projects = () => {
       <div style={styles.accordionContainer}>
         {portfolioData.projects.map((project) => (
           <div key={project.id} className="glass-card" style={styles.accordionItem}>
-            <button 
-              style={styles.accordionHeader} 
+            <AccordionHeader
+              project={project}
+              isOpen={openId === project.id}
               onClick={() => toggleAccordion(project.id)}
-            >
-              <div style={styles.headerLeft}>
-                <h3 style={{ margin: 0, fontSize: '1.25rem' }}>{project.title}</h3>
-                <span style={styles.period}>{project.period}</span>
-              </div>
-              <div style={styles.headerRight}>
-                <span style={styles.role}>{project.role}</span>
-                <span style={{ 
-                  transform: openId === project.id ? 'rotate(180deg)' : 'rotate(0deg)', 
-                  transition: 'transform 0.3s' 
-                }}>▼</span>
-              </div>
-            </button>
+              everOpenedAccordion={everOpenedAccordion}
+            />
             
             {openId === project.id && (
               <div style={styles.accordionBody}>
@@ -219,6 +252,8 @@ const styles = {
     textAlign: 'left',
     color: 'inherit',
     fontFamily: 'inherit',
+    transition: 'background 0.2s ease',
+    borderRadius: '16px',
   },
   headerLeft: {
     display: 'flex',
@@ -228,7 +263,8 @@ const styles = {
   headerRight: {
     display: 'flex',
     alignItems: 'center',
-    gap: '1rem',
+    gap: '0.75rem',
+    flexShrink: 0,
   },
   period: {
     fontSize: '0.875rem',
@@ -241,6 +277,15 @@ const styles = {
     background: 'rgba(79, 70, 229, 0.1)',
     padding: '0.25rem 0.75rem',
     borderRadius: '999px',
+  },
+  accordionBadge: {
+    fontSize: '0.7rem',
+    color: 'var(--text-secondary)',
+    border: '1px solid var(--border-color)',
+    padding: '0.2rem 0.6rem',
+    borderRadius: '4px',
+    fontWeight: '500',
+    whiteSpace: 'nowrap',
   },
   accordionBody: {
     padding: '2.5rem 2rem',
