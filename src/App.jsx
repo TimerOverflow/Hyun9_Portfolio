@@ -10,12 +10,15 @@ function App() {
   return (
     <div className="app-container">
       <ThemeToggle />
-      <Header />
-      <main>
-        <Experience />
+      <div className="page-container">
+        <Header />
+        <hr className="section-divider" />
         <Skills />
+        <hr className="section-divider" />
+        <Experience />
+        <hr className="section-divider" />
         <Projects />
-      </main>
+      </div>
       <footer style={{ textAlign: 'center', padding: '2rem 0', color: 'var(--text-secondary)', fontSize: '0.875rem' }}>
         <p>© {new Date().getFullYear()} 정현구. All rights reserved.</p>
       </footer>

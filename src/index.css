@@ -96,13 +96,30 @@ h1, h2, h3, h4 {
   padding: 0 24px;
 }
 
+/* Page Container — 하나의 큰 둥근 카드 */
+.page-container {
+  max-width: 1100px;
+  margin: 3rem auto;
+  padding-bottom: 3rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Section Divider — 노션 스타일 구분선 */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 1rem 3rem;
+}
+
 /* Sections */
 section {
-  padding: 80px 0;
-  border-bottom: 1px solid var(--border-color);
-}
-section:last-child {
-  border-bottom: none;
+  padding: 4rem 0 4rem;
 }
 
 .section-title {
