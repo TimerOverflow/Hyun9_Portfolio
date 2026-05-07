@@ -1,15 +1,64 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
 
+// 호버 효과 + 펄스 + 배지 + 바운스가 포함된 토글 버튼 컴포넌트
+const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
+  const [hovered, setHovered] = useState(false);
+
+  const arrowAnimation = isOpen
+    ? 'none'
+    : !everOpened
+      ? 'arrowBounce 0.8s ease infinite'
+      : 'arrowPulse 2.5s ease-in-out infinite';
+
+  return (
+    <button 
+      style={{
+        ...styles.toggleHeader,
+        background: hovered ? 'var(--detail-card-bg)' : 'transparent',
+        borderRadius: '6px',
+        padding: '0.6rem 0.75rem',
+        marginLeft: '-0.75rem',
+      }}
+      onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      <span style={{
+        ...styles.toggleArrow,
+        transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
+        color: hovered ? 'var(--detail-text)' : 'var(--detail-text-muted)',
+        animation: arrowAnimation,
+      }}>
+        ▶
+      </span>
+      <span style={{
+        ...styles.toggleTitle,
+        color: hovered ? 'var(--accent-primary)' : 'var(--detail-text)',
+      }}>
+        {title}
+      </span>
+      {!isOpen && (
+        <span style={styles.toggleBadge}>
+          ▾ 상세보기
+        </span>
+      )}
+    </button>
+  );
+};
+
 const Projects = () => {
   const [openId, setOpenId] = useState(null);
   const [openToggles, setOpenToggles] = useState({});
+  const [everOpened, setEverOpened] = useState(false);
 
   const toggleAccordion = (id) => {
     setOpenId(openId === id ? null : id);
   };
 
   const toggleSubItem = (key) => {
+    if (!everOpened) setEverOpened(true);
+
     setOpenToggles(prev => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -79,18 +128,12 @@ const Projects = () => {
                               const isOpen = openToggles[toggleKey] || false;
                               return (
                                 <div key={i} style={styles.toggleContainer}>
-                                  <button 
-                                    style={styles.toggleHeader}
+                                  <ToggleButton
+                                    isOpen={isOpen}
+                                    title={renderTextWithHighlights(item.title)}
                                     onClick={() => toggleSubItem(toggleKey)}
-                                  >
-                                    <span style={{
-                                      ...styles.toggleArrow,
-                                      transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
-                                    }}>▶</span>
-                                    <span style={styles.toggleTitle}>
-                                      {renderTextWithHighlights(item.title)}
-                                    </span>
-                                  </button>
+                                    everOpened={everOpened}
+                                  />
                                   {isOpen && (
                                     <div style={styles.toggleBody}>
                                       {item.content.map((subItem, si) => {
@@ -277,15 +320,27 @@ const styles = {
     textAlign: 'left',
   },
   toggleArrow: {
-    fontSize: '0.65rem',
-    transition: 'transform 0.2s ease',
+    fontSize: '0.75rem',
+    transition: 'transform 0.25s ease, color 0.2s ease',
     color: 'var(--detail-text-muted)',
     flexShrink: 0,
   },
   toggleTitle: {
-    fontWeight: '500',
+    fontWeight: '600',
     textDecoration: 'underline',
     textUnderlineOffset: '4px',
+    transition: 'color 0.2s ease',
+  },
+  toggleBadge: {
+    fontSize: '0.7rem',
+    color: 'var(--accent-primary)',
+    background: 'rgba(79, 70, 229, 0.08)',
+    padding: '0.15rem 0.5rem',
+    borderRadius: '4px',
+    marginLeft: '0.5rem',
+    fontWeight: '500',
+    flexShrink: 0,
+    letterSpacing: '0.3px',
   },
   toggleBody: {
     paddingLeft: '1.5rem',
