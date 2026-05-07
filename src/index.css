@@ -16,7 +16,7 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   /* Project detail area — light theme (노션 스타일) */
   --detail-bg: #ffffff;
-  --detail-text: #37352f;
+  --detail-text: #000000;
   --detail-text-muted: #787774;
   --detail-border: #e3e2e0;
   --detail-card-bg: #f7f6f3;

@@ -2,7 +2,7 @@ import React from 'react';
 import { portfolioData } from '../data/portfolioData';
 
 const Header = () => {
-  const { name, role, description, github } = portfolioData.header;
+  const { name, role, description, github, email } = portfolioData.header;
 
   return (
     <header style={styles.header}>
@@ -13,14 +13,20 @@ const Header = () => {
           <p style={{ marginTop: '1.5rem', fontSize: '1.125rem', maxWidth: '600px', margin: '1.5rem auto' }}>
             {description}
           </p>
-          <div style={{ marginTop: '2rem' }}>
+          <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap' }}>
             <a href={github} target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ textDecoration: 'none' }}>
               GitHub Profile
             </a>
+            {email && (
+              <a href={`mailto:${email}`} style={{ color: 'var(--text-secondary)', fontSize: '0.95rem', textDecoration: 'none', borderBottom: '1px solid var(--border-color)', paddingBottom: '2px' }}>
+                ✉️ {email}
+              </a>
+            )}
           </div>
         </div>
       </div>
     </header>
+
   );
 };
 
