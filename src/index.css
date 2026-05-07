@@ -14,15 +14,15 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  /* Project detail area */
-  --detail-bg: #1e1e1e;
-  --detail-text: #e0e0e0;
-  --detail-text-muted: #999;
-  --detail-border: #333;
-  --detail-card-bg: #2a2a2a;
-  --detail-highlight-bg: #322626;
-  --detail-highlight-color: #eb5757;
-  --detail-label-color: #ffffff;
+  /* Project detail area — light theme (노션 스타일) */
+  --detail-bg: #ffffff;
+  --detail-text: #37352f;
+  --detail-text-muted: #787774;
+  --detail-border: #e3e2e0;
+  --detail-card-bg: #f7f6f3;
+  --detail-highlight-bg: #fce4e4;
+  --detail-highlight-color: #d44c47;
+  --detail-label-color: #37352f;
 }
 
 [data-theme='dark'] {
