@@ -3,11 +3,13 @@ import Header from './components/Header';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
+import ThemeToggle from './components/ThemeToggle';
 import './index.css';
 
 function App() {
   return (
     <div className="app-container">
+      <ThemeToggle />
       <Header />
       <main>
         <Experience />

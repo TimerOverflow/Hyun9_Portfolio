@@ -60,9 +60,31 @@ export const portfolioData = {
         {
           label: "TroubleShooting",
           content: [
-            "제어기 동작 및 CAN 송수신 금지 전압 기능이 ASW에 핸드 코드로 작성 되어 있던 부분을 `CDD_CanCM` 모듈이 핸들링 하도록 플랫폼 설정 변경 및 코드 리팩토링. 그 결과 검증된 모듈을 통한 기능 구현으로 코드 안정성 향상."
+            {
+              type: 'toggle',
+              title: 'OTA 백그라운드 전송 중 제어기 리셋 이슈 디버깅',
+              content: [
+                { type: 'subTitle', text: '문제 현상' },
+                "제어기 OTA 백그라운드 다운로드가 진행되는 도중, 특정 기능을 실행하면 OTA와 특정 기능이 모두 실패하며 제어기가 리셋되는 치명적 결함 발생. (재현율 약 30%)",
+                { type: 'subTitle', text: '원인 분석 및 해결' },
+                "리셋 트리거 분석: `Trace32`를 이용하여 메인 코어의 레지스터(`F_SOFT_FUNC`) 확인 결과, `Functional reset` 확인.",
+                "코어 간 동기화 추적: 서브 코어에서 발생한 치명적 하드웨어 예외(`Os_ImpMachineCheckException`)가 코어 간 셧다운 메시지(`OS_IC_ShutdownCore`)를 통해 메인 코어로 전달되어 전체 시스템 셧다운 유도.",
+                "어셈블리 및 레지스터 분석: 코어의 `MCSR` 분석을 통해 `Instruction Fetch Error` 확인. 에러 발생 지점 주소를 저장한 레지스터 확인 결과 특정 기능 실행을 위한 정보를 플래시 메모리에서 읽어오는 `memcpy` 명령어임을 특정.",
+                { type: 'subTitle', text: '결과' },
+                "OTA 및 특정 기능 병렬 테스트 조건에서 발생하던 MCU 리셋(`Machine Check Exception`) 현상 해결."
+              ]
+            },
+            {
+              type: 'toggle',
+              title: '제어기 동작 및 CAN 송수신 금지 전압 기능 리팩토링',
+              content: [
+                "ASW에 핸드 코드로 작성 되어 있던 부분을 `CDD_CanCM` 모듈이 핸들링 하도록 플랫폼 설정 변경 및 코드 리팩토링.",
+                "그 결과 검증된 모듈을 통한 기능 구현으로 코드 안정성 향상."
+              ]
+            }
           ]
         }
+
       ],
       stack: ["AutoSAR", "C", "Mobilgene Studio", "Trace32"]
     },
