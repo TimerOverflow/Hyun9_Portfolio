@@ -33,25 +33,22 @@ const Projects = () => {
             
             {openId === project.id && (
               <div style={styles.accordionBody}>
-                <div style={styles.sectionRow}>
-                  <div style={styles.sectionLabel}>
-                    <h4 style={styles.subtitle}>Overview</h4>
-                  </div>
-                  <div style={styles.sectionContent}>
-                    <p>{project.overview}</p>
-                  </div>
-                </div>
-
-                <div style={styles.sectionRow}>
-                  <div style={styles.sectionLabel}>
-                    <h4 style={styles.subtitle}>Troubleshooting / Highlight</h4>
-                  </div>
-                  <div style={styles.sectionContent}>
-                    <div style={styles.highlightBox}>
-                      <p style={{ margin: 0 }}>{project.troubleshooting}</p>
+                {project.details.map((detail, idx) => (
+                  <div key={idx} style={styles.sectionRow}>
+                    <div style={styles.sectionLabel}>
+                      <h4 style={styles.subtitle}>{detail.label}</h4>
+                    </div>
+                    <div style={styles.sectionContent}>
+                      <ul style={styles.bulletList}>
+                        {detail.content.map((item, i) => (
+                          <li key={i} style={styles.bulletItem}>
+                            {item}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
                   </div>
-                </div>
+                ))}
 
                 <div style={styles.stackContainer}>
                   {project.stack.map((tech, idx) => (
@@ -115,53 +112,64 @@ const styles = {
     borderRadius: '999px',
   },
   accordionBody: {
-    padding: '2rem 1.5rem',
+    padding: '2.5rem 2rem',
     borderTop: '1px solid var(--border-color)',
-    marginTop: '0.5rem',
+    background: 'var(--bg-secondary)', // Slightly different bg for contrast
   },
   sectionRow: {
     display: 'flex',
-    gap: '2rem',
+    gap: '2.5rem',
     marginBottom: '2.5rem',
   },
   sectionLabel: {
     flex: '1',
-    minWidth: '140px',
+    minWidth: '160px',
   },
   sectionContent: {
     flex: '5',
   },
   subtitle: {
-    fontSize: '0.9rem',
-    fontWeight: '600',
+    fontSize: '0.95rem',
+    fontWeight: '700',
     color: 'var(--text-primary)',
-    borderLeft: '2px solid var(--text-primary)',
+    borderLeft: '3px solid var(--text-primary)',
     paddingLeft: '12px',
     margin: 0,
     display: 'inline-block',
     lineHeight: '1.2',
+    textDecoration: 'underline',
+    textUnderlineOffset: '6px',
+    textTransform: 'uppercase',
+    letterSpacing: '0.5px',
   },
-  highlightBox: {
-    background: 'var(--bg-secondary)',
-    border: '1px solid var(--border-color)',
-    padding: '1.25rem',
-    borderRadius: '12px',
+  bulletList: {
+    listStyleType: 'disc',
+    paddingLeft: '1.2rem',
+    margin: 0,
+  },
+  bulletItem: {
+    marginBottom: '0.75rem',
+    color: 'var(--text-secondary)',
+    fontSize: '0.95rem',
+    lineHeight: '1.6',
   },
   stackContainer: {
     display: 'flex',
     flexWrap: 'wrap',
-    gap: '0.5rem',
-    marginTop: '1.5rem',
-    paddingLeft: 'calc(1/6 * 100% + 2rem)', // To align with content
+    gap: '0.6rem',
+    marginTop: '2rem',
+    paddingTop: '2rem',
+    borderTop: '1px solid var(--border-color)',
+    justifyContent: 'flex-end',
   },
   stackBadge: {
     fontSize: '0.75rem',
     background: 'var(--bg-primary)',
     border: '1px solid var(--border-color)',
-    padding: '0.25rem 0.75rem',
+    padding: '0.3rem 0.8rem',
     borderRadius: '6px',
     color: 'var(--text-secondary)',
-    fontWeight: '500',
+    fontWeight: '600',
   }
 };
 
