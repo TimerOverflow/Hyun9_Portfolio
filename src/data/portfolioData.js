@@ -41,24 +41,26 @@ export const portfolioData = {
             "기간 : 2023/02 ~ 2026/03",
             "근무처 : 엠씨넥스",
             "담당 역할 : Software Developer",
-            "기술 : C, AUTOSAR, Mobilgene Studio, Trace32, Power Architecture MCU, ASPICE, Git"
+            "기술 : C, `AUTOSAR`, `Mobilgene Studio`, `Trace32`, `Power Architecture MCU`, `ASPICE`, `Git`"
           ]
         },
         {
           label: "Implementation & Achievements",
           content: [
-            "Mobilgene Studio를 이용한 AutoSAR 설정",
-            "기능 요구사항 구현을 위해 BSW Configuration 수행 (BswM, NvM Stack, Dcm, Com Stack ...)",
-            "오토에버 전개 플랫폼 수평전개 검토 및 패치 적용, 통합 중 발생하는 dependency 문제 해결",
-            "개정된 ES 사양 대응: Security Access False Key Attempt 횟수 NvM 저장 및 카운트 로직 구현",
-            "전력 소모 최적화: BswM 인터페이스를 이용한 Sleep / Wakeup 시퀀스 제어 로직 구현"
+            { type: 'header', text: 'Mobilgene Studio를 이용한 AutoSAR 설정', icon: '⚙️' },
+            "기능 요구사항 구현을 위해 `BSW Configuration` 수행 (`BswM`, `NvM Stack`, `Dcm`, `Com Stack` ...)",
+            "오토에버 전개 플랫폼 수평전개 검토 및 패치 적용하고, 플랫폼 패치 적용 및 통합 중 발생하는 `dependency` 문제 원인 파악 및 해결.",
+            "개정된 ES 사양 대응 하기 위해 `Dcm` 스택이 `Security Access`에서 `False Key Attempt` 횟수를 `NvM` 에 저장하도록 하고, `Access Level`에 따라 별도 카운트 하도록 설정 변경.",
+            { type: 'header', text: '고객사 SR 기반 기능 요구사항 개발을 위한 SWC 설계 및 구현', icon: '🚀' },
+            "제어기 주요 파라미터 상태 변수 보존을 위한 `NvM` 연동 인터페이스 설계 및 추가.",
+            "ECU 전력 소모 최적화를 위해 `BswM` 인터페이스를 이용한 `Sleep / Wakeup` 시퀀스 제어 로직 구현.",
+            "`Dcm` 의 `False Key Attempt` 저장 변수가 `NvM` 에 추가되면서 기존 기능 구현을 위한 메모리 영역과 `overlap` 되어 플래시 메모리 레이아웃 재구성 필요. `*.ld` 파일 수정을 주도하여 추가된 기능과 기존 기능 정상 동작 확인."
           ]
         },
         {
           label: "TroubleShooting",
           content: [
-            "CAN 송수신 금지 전압 기능을 CDD_CanCM 모듈로 이관하여 플랫폼 설정 변경 및 코드 리팩토링 수행. 이를 통해 코드 안정성 향상 및 모듈화 검증 완료",
-            "NvM False Key Attempt 저장 변수 추가 시 플래시 메모리 레이아웃 중첩 문제 해결"
+            "제어기 동작 및 CAN 송수신 금지 전압 기능이 ASW에 핸드 코드로 작성 되어 있던 부분을 `CDD_CanCM` 모듈이 핸들링 하도록 플랫폼 설정 변경 및 코드 리팩토링. 그 결과 검증된 모듈을 통한 기능 구현으로 코드 안정성 향상."
           ]
         }
       ],
@@ -74,16 +76,18 @@ export const portfolioData = {
           label: "Overview",
           content: [
             "소개 : 산업용 제어기 메인보드 및 HMI 타켓 보드 하드웨어 브링업 및 로우 레벨 드라이버 설계",
-            "기술 : C, C++, C#, STM32, Renesas, Atmel, Modbus RTU/TCP, BACnet"
+            "기술 : C, C++, C#, `STM32`, `Renesas`, `Atmel`, `Modbus RTU/TCP`, `BACnet`"
           ]
         },
         {
           label: "Implementation & Achievements",
           content: [
-            "30여 종의 산업용 제어기 메인보드 및 HMI 타켓 보드 초기 하드웨어 브링업(Bring-up)",
-            "로우 레벨 보드 드라이버 직접 설계 및 구현",
-            "파일 시스템(FATFS)과 비휘발성 메모리를 활용한 데이터 로깅 및 자체 DB 관리 로직 구현",
-            "통신 프로토콜 구현: Modbus RTU/TCP, BACnet 등 산업용 표준 프로토콜 스택 개발"
+            { type: 'header', text: '다양한 타겟 하드웨어 브링업 및 고객 맞춤형 제어 시스템 구현', icon: '📟' },
+            "30여 종에 달하는 산업용 제어기 메인보드와 소형 디스플레이부터 8인치 고해상도 터치 패널에 이르는 8종 이상의 HMI 타켓 보드 초기 하드웨어 브링업(Bring-up) 및 로우 레벨 보드 드라이버 직접 설계 및 구현.",
+            "파일 시스템(`FATFS`)과 비휘발성 메모리를 활용하여, 장비의 운전 트렌드 데이터 조회 및 실시간/과거 경보(`Alarm`) 리스트 이력을 효율적으로 저장하고 검색할 수 있는 경량화된 자체 DB 관리 로직 구현.",
+            { type: 'header', text: '자체 임베디드 소프트웨어 라이브러리 개발', icon: '📂' },
+            "어플리케이션과 하드웨어 종속 로직이 결합(`coupled`)된 레거시 코드를 분리하는 구조적 리팩토링 주도.",
+            "하드웨어 종속성이 있는 로직을 디바이스 드라이버로 모듈화하고, 재사용 가능한 어플리케이션 로직을 별도 모듈로 구현."
           ]
         },
         {
