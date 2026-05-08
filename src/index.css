@@ -23,12 +23,18 @@
   --detail-highlight-bg: #fce4e4;
   --detail-highlight-color: #d44c47;
   --detail-label-color: #37352f;
-  
+
   /* Scrollbar Theme Variables */
   --scrollbar-track: rgba(0, 0, 0, 0.05);
   --scrollbar-thumb: rgba(0, 0, 0, 0.2);
   --scrollbar-thumb-hover: rgba(0, 0, 0, 0.4);
-  
+
+  /* Image Theme Variables */
+  --image-filter: brightness(1);
+  --image-opacity: 1;
+  --image-border: rgba(0, 0, 0, 0.15);
+  --image-frame-bg: #f8fafc;
+
   /* Badge Variables */
   --badge-bg: rgba(79, 70, 229, 0.08);
   --badge-color: #4f46e5;
@@ -51,15 +57,22 @@
   --detail-highlight-bg: #3b1c1c;
   --detail-highlight-color: #f87171;
   --detail-label-color: #f1f5f9;
-  
+
   /* Scrollbar Theme Variables (Dark Mode) */
   --scrollbar-track: rgba(255, 255, 255, 0.05);
   --scrollbar-thumb: rgba(255, 255, 255, 0.2);
   --scrollbar-thumb-hover: rgba(255, 255, 255, 0.4);
-  
+
+  /* Image Theme Variables (Dark Mode) - Dim bright images slightly */
+  --image-filter: brightness(0.92) contrast(1.03);
+  --image-opacity: 0.95;
+  --image-border: rgba(255, 255, 255, 0.25);
+  --image-frame-bg: rgba(255, 255, 255, 0.1);
+
   /* Badge Variables (Dark Mode) - Brighter and more visible */
   --badge-bg: rgba(129, 140, 248, 0.15);
-  --badge-color: #818cf8; /* indigo-400 */
+  --badge-color: #818cf8;
+  /* indigo-400 */
   --badge-border: rgba(129, 140, 248, 0.3);
 }
 
@@ -95,8 +108,31 @@ body {
   transform: translateY(-2px);
 }
 
+/* Portfolio Images (Theme Adaptive) */
+.portfolio-image {
+  height: auto;
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  border: 2px solid var(--image-border);
+  padding: 8px;
+  background: var(--image-frame-bg);
+  filter: var(--image-filter);
+  opacity: var(--image-opacity);
+  transition: filter 0.3s ease, opacity 0.3s ease, transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.portfolio-image:hover {
+  filter: brightness(1) contrast(1);
+  opacity: 1;
+  border-color: var(--accent-primary);
+  box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+}
+
 /* Typography Utilities */
-h1, h2, h3, h4 {
+h1,
+h2,
+h3,
+h4 {
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 1rem;
@@ -179,22 +215,55 @@ ul {
 
 /* Toggle arrow animations */
 @keyframes arrowPulse {
-  0%, 100% { opacity: 0.5; }
-  50% { opacity: 1; }
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 1;
+  }
 }
 
 @keyframes arrowBounce {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(3px); }
-  50% { transform: translateX(0); }
-  75% { transform: translateX(3px); }
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(3px);
+  }
+
+  50% {
+    transform: translateX(0);
+  }
+
+  75% {
+    transform: translateX(3px);
+  }
 }
 
 @keyframes arrowBounceDown {
-  0%, 100% { transform: translateY(0); }
-  25% { transform: translateY(3px); }
-  50% { transform: translateY(0); }
-  75% { transform: translateY(3px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  25% {
+    transform: translateY(3px);
+  }
+
+  50% {
+    transform: translateY(0);
+  }
+
+  75% {
+    transform: translateY(3px);
+  }
 }
 
 /* Custom Scrollbar for Code Blocks */
@@ -202,13 +271,16 @@ ul {
   width: 8px;
   height: 8px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
   border-radius: 4px;
 }
+
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
 }
@@ -218,14 +290,17 @@ ul {
   width: 8px;
   height: 8px;
 }
+
 .table-scrollbar::-webkit-scrollbar-track {
   background: var(--scrollbar-track);
   border-radius: 4px;
 }
+
 .table-scrollbar::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
   border-radius: 4px;
 }
+
 .table-scrollbar::-webkit-scrollbar-thumb:hover {
   background: var(--scrollbar-thumb-hover);
 }

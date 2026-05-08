@@ -12,7 +12,7 @@ const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
       : 'arrowPulse 2.5s ease-in-out infinite';
 
   return (
-    <button 
+    <button
       style={{
         ...styles.toggleHeader,
         background: hovered ? 'var(--detail-card-bg)' : 'transparent',
@@ -198,7 +198,26 @@ const Projects = () => {
         </div>
       );
     }
-    
+
+    // 1-2. 이미지 (계층적 삽입)
+    if (typeof item === 'object' && item.type === 'image') {
+      const imageSrc = item.src.startsWith('http') || item.src.startsWith('data:')
+        ? item.src
+        : import.meta.env.BASE_URL + item.src.replace(/^\//, '');
+
+      return (
+        <div key={path} style={styles.imageContainer}>
+          <img
+            src={imageSrc}
+            alt={item.alt || 'portfolio image'}
+            className="portfolio-image"
+            style={{ maxWidth: item.maxWidth || '100%' }}
+          />
+          {item.caption && <p style={styles.imageCaption}>{item.caption}</p>}
+        </div>
+      );
+    }
+
     // 2. 소제목
     if (typeof item === 'object' && item.type === 'subTitle') {
       return (
@@ -211,20 +230,20 @@ const Projects = () => {
     // 3. 코드 스니펫
     if (typeof item === 'object' && item.type === 'code') {
       return (
-        <CodeBlock 
-          key={path} 
-          language={item.language} 
-          code={item.code} 
+        <CodeBlock
+          key={path}
+          language={item.language}
+          code={item.code}
         />
       );
     }
-    
+
     // 4. 토글 항목
     if (typeof item === 'object' && item.type === 'toggle') {
       const toggleKey = `${project.id}-${path}`;
       const isOpen = openToggles[toggleKey] || false;
       return (
-        <div key={path} style={{...styles.toggleContainer, marginTop: depth > 0 ? '0.2rem' : '0.5rem'}}>
+        <div key={path} style={{ ...styles.toggleContainer, marginTop: depth > 0 ? '0.2rem' : '0.5rem' }}>
           <ToggleButton
             isOpen={isOpen}
             title={renderTextWithHighlights(item.title)}
@@ -233,7 +252,7 @@ const Projects = () => {
           />
           {isOpen && (
             <div style={styles.toggleBody}>
-              {item.content && item.content.map((subItem, si) => 
+              {item.content && item.content.map((subItem, si) =>
                 renderContentBlock(subItem, si, `${path}-${si}`, project, depth + 1)
               )}
             </div>
@@ -245,7 +264,7 @@ const Projects = () => {
     // 5. 일반 글머리 기호 (또는 자식을 가지는 계층형 글머리 기호)
     const isBulletObj = typeof item === 'object' && item.type === 'bullet';
     const contentText = isBulletObj ? item.text : (typeof item === 'string' ? item : null);
-    
+
     if (contentText !== null) {
       return (
         <div key={path} style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: depth > 0 ? '0.2rem' : '0' }}>
@@ -258,7 +277,7 @@ const Projects = () => {
           {/* 하위 자식 렌더링 (들여쓰기 적용) */}
           {isBulletObj && item.children && (
             <div style={{ paddingLeft: '1.5rem', marginTop: '0.4rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-              {item.children.map((child, ci) => 
+              {item.children.map((child, ci) =>
                 renderContentBlock(child, ci, `${path}-child-${ci}`, project, depth + 1)
               )}
             </div>
@@ -282,7 +301,7 @@ const Projects = () => {
               onClick={() => toggleAccordion(project.id)}
               everOpenedAccordion={everOpenedAccordion}
             />
-            
+
             {openIds[project.id] && (
               <div style={styles.accordionBody}>
                 {project.details.map((detail, idx) => (
@@ -293,7 +312,7 @@ const Projects = () => {
                       </div>
                       <div style={styles.sectionContent}>
                         <div style={styles.contentGroup}>
-                          {detail.content.map((item, i) => 
+                          {detail.content.map((item, i) =>
                             renderContentBlock(item, i, `${idx}-${i}`, project)
                           )}
                         </div>
@@ -648,6 +667,26 @@ const styles = {
   },
   tableTr: {
     transition: 'background 0.2s',
+  },
+  // 이미지 스타일
+  imageContainer: {
+    margin: '1rem 0',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    width: '100%',
+  },
+  image: {
+    height: 'auto',
+    borderRadius: '8px',
+    boxShadow: 'var(--shadow-md)',
+    border: '1px solid var(--detail-border)',
+  },
+  imageCaption: {
+    marginTop: '0.5rem',
+    fontSize: '0.85rem',
+    color: 'var(--detail-text-muted)',
+    textAlign: 'center',
   }
 };
 
