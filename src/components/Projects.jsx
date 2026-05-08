@@ -173,6 +173,13 @@ const Projects = () => {
       return (
         <div key={path} style={styles.tableContainer} className="table-scrollbar">
           <table style={{ ...styles.table, minWidth: item.minWidth || '100%' }}>
+            {item.widths && (
+              <colgroup>
+                {item.widths.map((w, wi) => (
+                  <col key={wi} style={{ width: w }} />
+                ))}
+              </colgroup>
+            )}
             <thead>
               <tr>
                 {item.headers && item.headers.map((th, hi) => (
@@ -664,6 +671,7 @@ const styles = {
     verticalAlign: 'top',
     lineHeight: '1.6',
     wordBreak: 'break-word',
+    whiteSpace: 'pre-wrap',
   },
   tableTr: {
     transition: 'background 0.2s',
