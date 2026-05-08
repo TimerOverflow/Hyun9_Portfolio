@@ -156,7 +156,6 @@ const Projects = () => {
       return part;
     });
   };
-
   // 재귀적 콘텐츠 렌더링 함수 (무한 계층 지원)
   const renderContentBlock = (item, idx, path, project, depth = 0) => {
     // 1. 하위 섹션 헤더 (둥근 카드)
@@ -165,6 +164,37 @@ const Projects = () => {
         <div key={path} style={styles.subHeaderCard}>
           <span style={styles.subHeaderIcon}>{item.icon || '📍'}</span>
           <span style={styles.subHeaderText}>{item.text}</span>
+        </div>
+      );
+    }
+
+    // 1-1. 테이블 (표)
+    if (typeof item === 'object' && item.type === 'table') {
+      return (
+        <div key={path} style={styles.tableContainer} className="table-scrollbar">
+          <table style={{ ...styles.table, minWidth: item.minWidth || '100%' }}>
+            <thead>
+              <tr>
+                {item.headers && item.headers.map((th, hi) => (
+                  <th key={hi} style={styles.tableTh}>{th}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {item.rows && item.rows.map((row, ri) => (
+                <tr key={ri} style={{
+                  ...styles.tableTr,
+                  backgroundColor: ri % 2 === 0 ? 'transparent' : 'rgba(128, 128, 128, 0.03)'
+                }}>
+                  {row.map((td, di) => (
+                    <td key={di} style={styles.tableTd}>
+                      {renderTextWithHighlights(td)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       );
     }
@@ -580,6 +610,42 @@ const styles = {
     borderRadius: '6px',
     color: 'var(--detail-text-muted)',
     fontWeight: '600',
+  },
+  // 테이블 (표) 스타일
+  tableContainer: {
+    width: '100%',
+    overflowX: 'auto',
+    marginTop: '0.5rem',
+    marginBottom: '0.5rem',
+    borderRadius: '6px',
+    border: '1px solid var(--detail-border)',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+    fontSize: '0.85rem',
+    textAlign: 'left',
+    color: 'var(--detail-text)',
+  },
+  tableTh: {
+    padding: '0.6rem 1rem',
+    background: 'var(--detail-card-bg)',
+    fontWeight: '600',
+    borderBottom: '1px solid var(--detail-border)',
+    borderRight: '1px solid var(--detail-border)',
+    whiteSpace: 'nowrap',
+    color: 'var(--detail-text-muted)',
+  },
+  tableTd: {
+    padding: '0.6rem 1rem',
+    borderBottom: '1px solid var(--detail-border)',
+    borderRight: '1px solid var(--detail-border)',
+    verticalAlign: 'top',
+    lineHeight: '1.6',
+    wordBreak: 'break-word',
+  },
+  tableTr: {
+    transition: 'background 0.2s',
   }
 };
 

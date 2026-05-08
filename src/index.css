@@ -23,6 +23,11 @@
   --detail-highlight-bg: #fce4e4;
   --detail-highlight-color: #d44c47;
   --detail-label-color: #37352f;
+  
+  /* Scrollbar Theme Variables */
+  --scrollbar-track: rgba(0, 0, 0, 0.05);
+  --scrollbar-thumb: rgba(0, 0, 0, 0.2);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.4);
 }
 
 [data-theme='dark'] {
@@ -41,6 +46,11 @@
   --detail-highlight-bg: #3b1c1c;
   --detail-highlight-color: #f87171;
   --detail-label-color: #f1f5f9;
+  
+  /* Scrollbar Theme Variables (Dark Mode) */
+  --scrollbar-track: rgba(255, 255, 255, 0.05);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.4);
 }
 
 * {
@@ -191,4 +201,21 @@ ul {
 }
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.4);
+}
+
+/* Custom Scrollbar for Tables (Light/Dark adaptive) */
+.table-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.table-scrollbar::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+  border-radius: 4px;
+}
+.table-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+.table-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
 }

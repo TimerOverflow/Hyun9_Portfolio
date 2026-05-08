@@ -115,6 +115,22 @@ sudo gitlab-rails console
 Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버에서 발송된 테스트 메일입니다!').`
                         }
                       ]
+                    },
+                    {
+                      type: 'toggle',
+                      title: 'Module List (표 삽입 예시)',
+                      content: [
+                        {
+                          type: 'table',
+                          minWidth: '900px', // 넓은 표를 위한 최소 너비 설정 (스크롤 유도)
+                          headers: ['Name', 'Description', 'Hardware'],
+                          rows: [
+                            ['AvrUart', '✅ FIFO 방식의 AVR UART 통신 지원\n✅ 채널 별 인스턴스 관리 및 RS-485 통신 지원을 위한 GPIO 제어 지원', 'Yes'],
+                            ['AvrModbus', '✅ AvrUart 모듈 기반 Modbus-RTU 프로토콜 지원\n✅ Master / Slave 모두 지원하며 전처리 정의에 따른 선택적 빌드 가능', 'Yes'],
+                            ['SysEeprom', '✅ 하드웨어 추상화 계층 (HAL) 지원\n✅ EEPROM 주소 자동 할당\n✅ 비동기 (Non-blocking) 쓰기 처리', 'No']
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
