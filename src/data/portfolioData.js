@@ -87,12 +87,19 @@ export const portfolioData = {
               title: '실시간 알림 시스템 연동 (GitLab CI/CD)',
               content: [
                 "파이프라인 수행 완료 시, 사내 메일 서버와 연동하여 유관 부서 담당자들에게 성공/실패 여부를 자동으로 이메일 발송.",
-                "Git이 설치된 리눅스 서버에 ssh로 접근하여 사내 전산팀으로부터 할당받은 메일 계정 설정하고, 발신 테스트 수행.",
                 {
-                  type: 'code',
-                  language: 'bash',
-                  editable: true,
-                  code: `# smtp 메일과 관련된 설정 검색
+                  type: 'bullet',
+                  text: "Git이 설치된 리눅스 서버에 ssh로 접근하여 사내 전산팀으로부터 할당받은 메일 계정 설정하고, 발신 테스트 수행.",
+                  children: [
+                    {
+                      type: 'toggle',
+                      title: '메일 발송 설정 및 테스트 스크립트 보기',
+                      content: [
+                        "서버 환경에 접속한 후 아래의 스크립트를 순차적으로 실행하여 SMTP 설정을 완료합니다.",
+                        {
+                          type: 'code',
+                          language: 'bash',
+                          code: `# smtp 메일과 관련된 설정 검색
 sudo grep -i "smtp" /etc/gitlab/gitlab.rb
 
 # smtp 설정 파일 편집
@@ -106,6 +113,10 @@ sudo gitlab-rails console
 
 #메일 발송 테스트
 Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버에서 발송된 테스트 메일입니다!').`
+                        }
+                      ]
+                    }
+                  ]
                 }
               ]
             }

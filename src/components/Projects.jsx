@@ -157,6 +157,89 @@ const Projects = () => {
     });
   };
 
+  // 재귀적 콘텐츠 렌더링 함수 (무한 계층 지원)
+  const renderContentBlock = (item, idx, path, project, depth = 0) => {
+    // 1. 하위 섹션 헤더 (둥근 카드)
+    if (typeof item === 'object' && item.type === 'header') {
+      return (
+        <div key={path} style={styles.subHeaderCard}>
+          <span style={styles.subHeaderIcon}>{item.icon || '📍'}</span>
+          <span style={styles.subHeaderText}>{item.text}</span>
+        </div>
+      );
+    }
+    
+    // 2. 소제목
+    if (typeof item === 'object' && item.type === 'subTitle') {
+      return (
+        <h5 key={path} style={styles.toggleSubTitle}>
+          {item.text}
+        </h5>
+      );
+    }
+
+    // 3. 코드 스니펫
+    if (typeof item === 'object' && item.type === 'code') {
+      return (
+        <CodeBlock 
+          key={path} 
+          language={item.language} 
+          code={item.code} 
+        />
+      );
+    }
+    
+    // 4. 토글 항목
+    if (typeof item === 'object' && item.type === 'toggle') {
+      const toggleKey = `${project.id}-${path}`;
+      const isOpen = openToggles[toggleKey] || false;
+      return (
+        <div key={path} style={{...styles.toggleContainer, marginTop: depth > 0 ? '0.2rem' : '0.5rem'}}>
+          <ToggleButton
+            isOpen={isOpen}
+            title={renderTextWithHighlights(item.title)}
+            onClick={() => toggleSubItem(toggleKey)}
+            everOpened={everOpened}
+          />
+          {isOpen && (
+            <div style={styles.toggleBody}>
+              {item.content && item.content.map((subItem, si) => 
+                renderContentBlock(subItem, si, `${path}-${si}`, project, depth + 1)
+              )}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    // 5. 일반 글머리 기호 (또는 자식을 가지는 계층형 글머리 기호)
+    const isBulletObj = typeof item === 'object' && item.type === 'bullet';
+    const contentText = isBulletObj ? item.text : (typeof item === 'string' ? item : null);
+    
+    if (contentText !== null) {
+      return (
+        <div key={path} style={{ display: 'flex', flexDirection: 'column', gap: 0, marginTop: depth > 0 ? '0.2rem' : '0' }}>
+          <div style={styles.bulletItemRow}>
+            <span style={styles.bulletDot}>•</span>
+            <div style={styles.bulletText}>
+              {renderTextWithHighlights(contentText)}
+            </div>
+          </div>
+          {/* 하위 자식 렌더링 (들여쓰기 적용) */}
+          {isBulletObj && item.children && (
+            <div style={{ paddingLeft: '1.5rem', marginTop: '0.4rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
+              {item.children.map((child, ci) => 
+                renderContentBlock(child, ci, `${path}-child-${ci}`, project, depth + 1)
+              )}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <section id="projects" className="container">
       <h2 className="section-title text-gradient">Key Projects</h2>
@@ -180,90 +263,9 @@ const Projects = () => {
                       </div>
                       <div style={styles.sectionContent}>
                         <div style={styles.contentGroup}>
-                          {detail.content.map((item, i) => {
-                            // 하위 섹션 헤더 (둥근 카드)
-                            if (typeof item === 'object' && item.type === 'header') {
-                              return (
-                                <div key={i} style={styles.subHeaderCard}>
-                                  <span style={styles.subHeaderIcon}>{item.icon || '📍'}</span>
-                                  <span style={styles.subHeaderText}>{item.text}</span>
-                                </div>
-                              );
-                            }
-                            
-                            // 코드 스니펫 (노션 스타일)
-                            if (typeof item === 'object' && item.type === 'code') {
-                              return (
-                                <CodeBlock 
-                                  key={i} 
-                                  language={item.language} 
-                                  code={item.code} 
-                                  editable={item.editable} 
-                                />
-                              );
-                            }
-                            
-                            // 접고 펼 수 있는 토글 항목
-                            if (typeof item === 'object' && item.type === 'toggle') {
-                              const toggleKey = `${project.id}-${idx}-${i}`;
-                              const isOpen = openToggles[toggleKey] || false;
-                              return (
-                                <div key={i} style={styles.toggleContainer}>
-                                  <ToggleButton
-                                    isOpen={isOpen}
-                                    title={renderTextWithHighlights(item.title)}
-                                    onClick={() => toggleSubItem(toggleKey)}
-                                    everOpened={everOpened}
-                                  />
-                                  {isOpen && (
-                                    <div style={styles.toggleBody}>
-                                      {item.content.map((subItem, si) => {
-                                        // 토글 내부의 하위 섹션 제목 (예: "문제 현상", "원인 분석 및 해결" 등)
-                                        if (typeof subItem === 'object' && subItem.type === 'subTitle') {
-                                          return (
-                                            <h5 key={si} style={styles.toggleSubTitle}>
-                                              {subItem.text}
-                                            </h5>
-                                          );
-                                        }
-                                        // 코드 스니펫 (토글 내부)
-                                        if (typeof subItem === 'object' && subItem.type === 'code') {
-                                          return (
-                                            <CodeBlock 
-                                              key={si} 
-                                              language={subItem.language} 
-                                              code={subItem.code} 
-                                              editable={subItem.editable} 
-                                            />
-                                          );
-                                        }
-
-                                        return (
-                                          <div key={si} style={styles.bulletItemRow}>
-                                            <span style={styles.bulletDot}>•</span>
-                                            <div style={styles.bulletText}>
-                                              {renderTextWithHighlights(subItem)}
-                                            </div>
-                                          </div>
-                                        );
-                                      })}
-                                    </div>
-                                  )}
-                                </div>
-                              );
-                            }
-
-                            // 일반 글머리 기호 항목
-                            const contentText = typeof item === 'object' ? item.text : item;
-                            return (
-                              <div key={i} style={styles.bulletItemRow}>
-                                <span style={styles.bulletDot}>•</span>
-                                <div style={styles.bulletText}>
-                                  {renderTextWithHighlights(contentText)}
-                                </div>
-                              </div>
-                            );
-                          })}
+                          {detail.content.map((item, i) => 
+                            renderContentBlock(item, i, `${idx}-${i}`, project)
+                          )}
                         </div>
                       </div>
                     </div>
