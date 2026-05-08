@@ -47,6 +47,42 @@ const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
   );
 };
 
+// 코드 스니펫 컴포넌트 (노션 스타일 - 줄 번호 및 짝/홀수 줄 색상 적용)
+const CodeBlock = ({ language, code }) => {
+  const [copied, setCopied] = useState(false);
+  const lines = code ? code.split('\n') : [];
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(code);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div style={styles.codeBlockContainer}>
+      <div style={styles.codeBlockHeader}>
+        <span style={styles.codeLanguage}>{language || 'text'}</span>
+        <button style={styles.copyButton} onClick={handleCopy}>
+          {copied ? 'Copied!' : 'Copy'}
+        </button>
+      </div>
+      <div className="custom-scrollbar" style={styles.codePre}>
+        <div style={{ minWidth: 'max-content' }}>
+          {lines.map((line, i) => (
+            <div key={i} style={{
+              ...styles.codeLine,
+              backgroundColor: i % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.03)'
+            }}>
+              <span style={styles.lineNumber}>{i + 1}</span>
+              <span style={styles.lineText}>{line || ' '}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // 아코디언 헤더 컴포넌트 (호버 + 바운스 + 배지)
 const AccordionHeader = ({ project, isOpen, onClick, everOpenedAccordion }) => {
   const [hovered, setHovered] = useState(false);
@@ -155,6 +191,18 @@ const Projects = () => {
                               );
                             }
                             
+                            // 코드 스니펫 (노션 스타일)
+                            if (typeof item === 'object' && item.type === 'code') {
+                              return (
+                                <CodeBlock 
+                                  key={i} 
+                                  language={item.language} 
+                                  code={item.code} 
+                                  editable={item.editable} 
+                                />
+                              );
+                            }
+                            
                             // 접고 펼 수 있는 토글 항목
                             if (typeof item === 'object' && item.type === 'toggle') {
                               const toggleKey = `${project.id}-${idx}-${i}`;
@@ -178,6 +226,18 @@ const Projects = () => {
                                             </h5>
                                           );
                                         }
+                                        // 코드 스니펫 (토글 내부)
+                                        if (typeof subItem === 'object' && subItem.type === 'code') {
+                                          return (
+                                            <CodeBlock 
+                                              key={si} 
+                                              language={subItem.language} 
+                                              code={subItem.code} 
+                                              editable={subItem.editable} 
+                                            />
+                                          );
+                                        }
+
                                         return (
                                           <div key={si} style={styles.bulletItemRow}>
                                             <span style={styles.bulletDot}>•</span>
@@ -310,6 +370,7 @@ const styles = {
   },
   sectionContent: {
     flex: '5',
+    minWidth: 0,
   },
   subtitle: {
     fontSize: '0.9rem',
@@ -327,6 +388,7 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     gap: '0.75rem',
+    minWidth: 0,
   },
   subHeaderCard: {
     display: 'flex',
@@ -350,6 +412,7 @@ const styles = {
   // Toggle (접기/펼치기) 스타일
   toggleContainer: {
     marginTop: '0.5rem',
+    minWidth: 0,
   },
   toggleHeader: {
     display: 'flex',
@@ -387,6 +450,73 @@ const styles = {
     flexShrink: 0,
     letterSpacing: '0.3px',
   },
+  // 코드 블록 (노션 스타일)
+  codeBlockContainer: {
+    background: '#1e1e1e', // 노션 다크 코드 블록과 유사한 색상
+    borderRadius: '6px',
+    margin: '0.75rem 0',
+    overflow: 'hidden',
+    fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
+    minWidth: 0,
+    maxWidth: '100%',
+  },
+  codeBlockHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0.4rem 1rem',
+    background: '#2d2d2d',
+    borderBottom: '1px solid #404040',
+  },
+  codeLanguage: {
+    color: '#a0a0a0',
+    fontSize: '0.75rem',
+    textTransform: 'lowercase',
+  },
+  copyButton: {
+    background: 'none',
+    border: 'none',
+    color: '#a0a0a0',
+    fontSize: '0.75rem',
+    cursor: 'pointer',
+    padding: '0.2rem 0.5rem',
+    borderRadius: '4px',
+    transition: 'background 0.2s',
+  },
+  codePre: {
+    margin: 0,
+    padding: '0.5rem 0',
+    color: '#d4d4d4',
+    fontSize: '0.875rem',
+    overflowX: 'auto',
+    overflowY: 'auto',
+    maxHeight: '400px',
+    background: 'transparent',
+    border: 'none',
+    width: '100%',
+    fontFamily: 'inherit',
+    outline: 'none',
+  },
+  codeLine: {
+    display: 'flex',
+    padding: '0 1rem',
+    lineHeight: '1.6',
+    whiteSpace: 'pre',
+  },
+  lineNumber: {
+    minWidth: '2.5rem',
+    color: '#6e7681',
+    textAlign: 'right',
+    paddingRight: '1rem',
+    userSelect: 'none',
+    fontSize: '0.8rem',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+  },
+  lineText: {
+    flex: 1,
+  },
   toggleBody: {
     paddingLeft: '1.5rem',
     paddingTop: '0.75rem',
@@ -396,6 +526,7 @@ const styles = {
     borderLeft: '2px solid var(--detail-border)',
     marginLeft: '0.35rem',
     marginBottom: '0.75rem',
+    minWidth: 0,
   },
   toggleSubTitle: {
     fontWeight: '700',
@@ -416,6 +547,10 @@ const styles = {
   bulletText: {
     fontSize: '0.95rem',
     color: 'var(--detail-text)',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+    flex: 1,
+    minWidth: 0,
   },
   highlightText: {
     background: 'var(--detail-highlight-bg)',
