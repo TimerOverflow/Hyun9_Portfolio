@@ -55,6 +55,9 @@ skills: {
 - **글머리 기호(•) 본문**: 그냥 문자열을 입력합니다.
 - **하위 섹션 강조(Callout)**: `{ type: 'header', text: '제목', icon: '이모지' }` 객체를 입력합니다.
 - **키워드 강조(적색 배경)**: 강조하고 싶은 단어를 **백틱(`` ` ``)**으로 감쌉니다.
+- **코드 스니펫 (노션 다크 모드 스타일)**: `{ type: 'code', language: '언어', code: '코드 내용' }` 객체를 사용합니다. 
+  - `language` 속성을 수정하면 스니펫 우측 상단에 표시되는 텍스트(`bash`, `javascript` 등)를 변경할 수 있습니다.
+  - 라인 넘버와 가독성을 위한 지브라 패턴(얼룩말 무늬 줄)이 자동으로 지원되며, 우측 상단의 Copy 버튼이 자동 생성됩니다.
 - **접고 펼 수 있는 토글**: `{ type: 'toggle', title: '제목', content: [...] }` 객체를 사용합니다.
 - **토글 내 소제목**: 토글의 content 안에서 `{ type: 'subTitle', text: '소제목' }` 을 사용합니다.
 
@@ -86,6 +89,11 @@ details: [
         content: [
           { type: 'subTitle', text: '문제 현상' },       // 토글 내 소제목
           "OTA 다운로드 중 리셋 발생...",                   // 일반 문장
+          {
+            type: 'code',                                // 코드 스니펫
+            language: 'bash',                            // 우측 상단 표시 언어
+            code: `# 로그 확인\nsudo journalctl -u ota.service` 
+          },
           { type: 'subTitle', text: '결과' },
           "`Machine Check Exception` 해결."
         ]
