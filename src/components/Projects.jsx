@@ -125,14 +125,14 @@ const AccordionHeader = ({ project, isOpen, onClick, everOpenedAccordion }) => {
 };
 
 const Projects = () => {
-  const [openId, setOpenId] = useState(null);
+  const [openIds, setOpenIds] = useState({});
   const [openToggles, setOpenToggles] = useState({});
   const [everOpened, setEverOpened] = useState(false);
   const [everOpenedAccordion, setEverOpenedAccordion] = useState(false);
 
   const toggleAccordion = (id) => {
     if (!everOpenedAccordion) setEverOpenedAccordion(true);
-    setOpenId(openId === id ? null : id);
+    setOpenIds(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
   const toggleSubItem = (key) => {
@@ -278,12 +278,12 @@ const Projects = () => {
           <div key={project.id} className="glass-card" style={styles.accordionItem}>
             <AccordionHeader
               project={project}
-              isOpen={openId === project.id}
+              isOpen={openIds[project.id] || false}
               onClick={() => toggleAccordion(project.id)}
               everOpenedAccordion={everOpenedAccordion}
             />
             
-            {openId === project.id && (
+            {openIds[project.id] && (
               <div style={styles.accordionBody}>
                 {project.details.map((detail, idx) => (
                   <React.Fragment key={idx}>
