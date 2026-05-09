@@ -1,5 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { portfolioData } from '../data/portfolioData';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { vscDarkPlus, oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+// 라이트 테마에서 이탤릭체(기울임꼴) 제거하여 다크 테마와 일관성 유지
+const normalizedOneLight = Object.keys(oneLight).reduce((acc, key) => {
+  if (oneLight[key] && oneLight[key].fontStyle === 'italic') {
+    acc[key] = { ...oneLight[key], fontStyle: 'normal' };
+  } else {
+    acc[key] = oneLight[key];
+  }
+  return acc;
+}, {});
 
 // 호버 효과 + 펄스 + 배지 + 바운스가 포함된 토글 버튼 컴포넌트
 const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
@@ -47,10 +59,22 @@ const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
   );
 };
 
-// 코드 스니펫 컴포넌트 (노션 스타일 - 줄 번호 및 짝/홀수 줄 색상 적용)
+// 코드 스니펫 컴포넌트 (테마 동적 반응 + 구문 강조)
 const CodeBlock = ({ language, code }) => {
   const [copied, setCopied] = useState(false);
-  const lines = code ? code.split('\n') : [];
+  const [isDark, setIsDark] = useState(() => document.documentElement.getAttribute('data-theme') === 'dark');
+
+  useEffect(() => {
+    const checkTheme = () => setIsDark(document.documentElement.getAttribute('data-theme') === 'dark');
+    // 옵저버를 통해 data-theme 속성 변경을 실시간으로 감지
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    
+    // 초기 테마 확인
+    checkTheme();
+    
+    return () => observer.disconnect();
+  }, []);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
@@ -58,26 +82,61 @@ const CodeBlock = ({ language, code }) => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // 테마에 따른 동적 색상 값 할당 (Dark: 도쿄 나이트 / Light: 화이트 톤)
+  const themeColors = {
+    bgColor: isDark ? '#1a1b26' : '#fafafa',
+    headerBgColor: isDark ? '#24283b' : '#f0f0f0',
+    borderColor: isDark ? '#292e42' : '#e0e0e0',
+    textColor: isDark ? '#7aa2f7' : '#0052a3',
+    btnBg: isDark ? 'rgba(122, 162, 247, 0.1)' : 'rgba(0, 82, 163, 0.1)',
+    btnBorder: isDark ? '1px solid rgba(122, 162, 247, 0.2)' : '1px solid rgba(0, 82, 163, 0.2)',
+    zebraOdd: isDark ? 'rgba(255, 255, 255, 0.02)' : 'rgba(0, 0, 0, 0.02)',
+    lineNumberColor: isDark ? '#565f89' : '#a0aabf',
+  };
+
   return (
-    <div style={styles.codeBlockContainer}>
-      <div style={styles.codeBlockHeader}>
-        <span style={styles.codeLanguage}>{language || 'text'}</span>
-        <button style={styles.copyButton} onClick={handleCopy}>
+    <div style={{...styles.codeBlockContainer, background: themeColors.bgColor, border: `1px solid ${themeColors.borderColor}`}}>
+      <div style={{...styles.codeBlockHeader, background: themeColors.headerBgColor, borderBottom: `1px solid ${themeColors.borderColor}`}}>
+        <span style={{...styles.codeLanguage, color: themeColors.textColor}}>{language || 'text'}</span>
+        <button style={{...styles.copyButton, background: themeColors.btnBg, border: themeColors.btnBorder, color: themeColors.textColor}} onClick={handleCopy}>
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
-      <div className="custom-scrollbar" style={styles.codePre}>
-        <div style={{ minWidth: 'max-content' }}>
-          {lines.map((line, i) => (
-            <div key={i} style={{
-              ...styles.codeLine,
-              backgroundColor: i % 2 === 0 ? 'transparent' : 'rgba(255, 255, 255, 0.03)'
-            }}>
-              <span style={styles.lineNumber}>{i + 1}</span>
-              <span style={styles.lineText}>{line || ' '}</span>
-            </div>
-          ))}
-        </div>
+      <div className="custom-scrollbar" style={{...styles.codePre, padding: 0}}>
+        <SyntaxHighlighter
+          language={language ? language.toLowerCase() : 'text'}
+          style={isDark ? vscDarkPlus : normalizedOneLight}
+          customStyle={{
+            margin: 0,
+            padding: '1rem 0',
+            background: 'transparent',
+            fontSize: '0.875rem',
+            lineHeight: '1.6',
+            width: 'max-content',
+            minWidth: '100%',
+            overflow: 'visible', // 부모 div에서 스크롤하므로 pre 자체의 오버플로우는 visible
+          }}
+          codeTagProps={{
+            style: { display: 'block' }
+          }}
+          showLineNumbers={true}
+          lineNumberStyle={{
+            minWidth: '3.5rem',
+            paddingRight: '1.2rem',
+            color: themeColors.lineNumberColor,
+            textAlign: 'right',
+          }}
+          wrapLines={true}
+          lineProps={(lineNumber) => ({
+            style: {
+              display: 'block',
+              width: '100%',
+              backgroundColor: lineNumber % 2 === 0 ? themeColors.zebraOdd : 'transparent',
+            }
+          })}
+        >
+          {code}
+        </SyntaxHighlighter>
       </div>
     </div>
   );
@@ -510,12 +569,14 @@ const styles = {
     flexShrink: 0,
     letterSpacing: '0.3px',
   },
-  // 코드 블록 (노션 스타일)
+  // 코드 블록 (도쿄 나이트 스타일)
   codeBlockContainer: {
-    background: '#1e1e1e', // 노션 다크 코드 블록과 유사한 색상
-    borderRadius: '6px',
-    margin: '0.75rem 0',
+    background: '#1a1b26', // 도쿄 나이트 메인 배경색
+    borderRadius: '8px',
+    margin: '1rem 0',
     overflow: 'hidden',
+    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.2)',
+    border: '1px solid #292e42', // 도쿄 나이트 테두리 색상
     fontFamily: '"SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace',
     minWidth: 0,
     maxWidth: '100%',
@@ -524,24 +585,26 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: '0.4rem 1rem',
-    background: '#2d2d2d',
-    borderBottom: '1px solid #404040',
+    padding: '0.5rem 1rem',
+    background: '#24283b', // 도쿄 나이트 헤더 배경색 (Storm)
+    borderBottom: '1px solid #292e42',
   },
   codeLanguage: {
-    color: '#a0a0a0',
+    color: '#7aa2f7', // 도쿄 나이트 푸른색 텍스트
     fontSize: '0.75rem',
-    textTransform: 'lowercase',
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: '0.05em',
   },
   copyButton: {
-    background: 'none',
-    border: 'none',
-    color: '#a0a0a0',
+    background: 'rgba(122, 162, 247, 0.1)',
+    border: '1px solid rgba(122, 162, 247, 0.2)',
+    color: '#7aa2f7',
     fontSize: '0.75rem',
     cursor: 'pointer',
-    padding: '0.2rem 0.5rem',
+    padding: '0.3rem 0.6rem',
     borderRadius: '4px',
-    transition: 'background 0.2s',
+    transition: 'all 0.2s ease',
   },
   codePre: {
     margin: 0,
