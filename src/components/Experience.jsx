@@ -4,7 +4,7 @@ import { portfolioData } from '../data/portfolioData';
 const Experience = () => {
   return (
     <section id="experience" className="container">
-      <h2 className="section-title text-gradient">Work Experience</h2>
+      <h2 className="section-title text-gradient">WORK EXPERIENCE</h2>
       <div style={styles.timeline}>
         {portfolioData.experience.map((exp, index) => (
           <div key={exp.id} className="glass-card" style={styles.item}>

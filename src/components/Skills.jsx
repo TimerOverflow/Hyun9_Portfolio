@@ -11,8 +11,8 @@ const Skills = () => {
 
   return (
     <section id="skills" className="container" style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '24px', padding: '80px 40px', marginTop: '40px' }}>
-      <h2 className="section-title text-gradient">Technical Skills</h2>
-      
+      <h2 className="section-title text-gradient">SKILL</h2>
+
       <div style={styles.tabsContainer}>
         <div style={styles.tabList}>
           {tabs.map((tab) => (
@@ -28,7 +28,7 @@ const Skills = () => {
             </button>
           ))}
         </div>
-        
+
         <div className="glass-card" style={styles.tabContent}>
           <div style={styles.skillsGrid}>
             {portfolioData.skills[activeTab].map((skill, index) => (

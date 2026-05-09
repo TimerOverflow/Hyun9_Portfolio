@@ -69,10 +69,10 @@ const CodeBlock = ({ language, code }) => {
     // 옵저버를 통해 data-theme 속성 변경을 실시간으로 감지
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-    
+
     // 초기 테마 확인
     checkTheme();
-    
+
     return () => observer.disconnect();
   }, []);
 
@@ -95,14 +95,14 @@ const CodeBlock = ({ language, code }) => {
   };
 
   return (
-    <div style={{...styles.codeBlockContainer, background: themeColors.bgColor, border: `1px solid ${themeColors.borderColor}`}}>
-      <div style={{...styles.codeBlockHeader, background: themeColors.headerBgColor, borderBottom: `1px solid ${themeColors.borderColor}`}}>
-        <span style={{...styles.codeLanguage, color: themeColors.textColor}}>{language || 'text'}</span>
-        <button style={{...styles.copyButton, background: themeColors.btnBg, border: themeColors.btnBorder, color: themeColors.textColor}} onClick={handleCopy}>
+    <div style={{ ...styles.codeBlockContainer, background: themeColors.bgColor, border: `1px solid ${themeColors.borderColor}` }}>
+      <div style={{ ...styles.codeBlockHeader, background: themeColors.headerBgColor, borderBottom: `1px solid ${themeColors.borderColor}` }}>
+        <span style={{ ...styles.codeLanguage, color: themeColors.textColor }}>{language || 'text'}</span>
+        <button style={{ ...styles.copyButton, background: themeColors.btnBg, border: themeColors.btnBorder, color: themeColors.textColor }} onClick={handleCopy}>
           {copied ? 'Copied!' : 'Copy'}
         </button>
       </div>
-      <div className="custom-scrollbar" style={{...styles.codePre, padding: 0}}>
+      <div className="custom-scrollbar" style={{ ...styles.codePre, padding: 0 }}>
         <SyntaxHighlighter
           language={language ? language.toLowerCase() : 'text'}
           style={isDark ? vscDarkPlus : normalizedOneLight}
@@ -357,7 +357,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="container">
-      <h2 className="section-title text-gradient">Key Projects</h2>
+      <h2 className="section-title text-gradient">KEY PROJECT</h2>
       <div style={styles.accordionContainer}>
         {portfolioData.projects.map((project) => (
           <div key={project.id} className="glass-card" style={styles.accordionItem}>
