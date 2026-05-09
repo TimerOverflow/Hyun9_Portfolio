@@ -69,8 +69,8 @@ const LevelIndicator = ({ level = 3 }) => {
             borderRadius: '2px',
             backgroundColor: i <= level ? 'var(--accent-primary)' : 'var(--border-color)',
             opacity: i <= level ? 1 : 0.3,
-            boxShadow: i <= level 
-              ? '0 0 5px var(--accent-primary), 0 0 10px var(--accent-primary)' 
+            boxShadow: i <= level
+              ? '0 0 5px var(--accent-primary), 0 0 10px var(--accent-primary)'
               : 'none',
             transition: 'all 0.3s ease',
           }}
@@ -82,15 +82,10 @@ const LevelIndicator = ({ level = 3 }) => {
 
 const Skills = () => {
   const categories = [
-    { id: 'language', title: 'SOFTWARE & PROTOCOL' },
-    { id: 'board', title: 'BOARD & HARDWARE' },
-    { id: 'tools', title: 'TOOLS & INFRASTRUCTURE' }
+    { id: 'language', title: 'LANGUAGE' },
+    { id: 'board', title: 'MCU' },
+    { id: 'tools', title: 'TOOLS & OTHERS' }
   ];
-
-  const getLevel = (skillName) => {
-    const length = skillName.length;
-    return (length % 3) + 1; 
-  };
 
   return (
     <section id="skills" className="container" style={{ marginTop: '40px' }}>
@@ -103,7 +98,7 @@ const Skills = () => {
               <HeaderIcon type={cat.id} />
               <h3 style={styles.cardTitle}>{cat.title}</h3>
             </div>
-            
+
             <div style={styles.divider}></div>
 
             <div style={styles.skillsList}>
@@ -111,9 +106,9 @@ const Skills = () => {
                 <div key={index} style={styles.skillItem}>
                   <div style={styles.skillNameContainer}>
                     <SkillIcon type={cat.id} />
-                    <span style={styles.skillName}>{skill}</span>
+                    <span style={styles.skillName}>{skill.name}</span>
                   </div>
-                  <LevelIndicator level={getLevel(skill)} />
+                  <LevelIndicator level={skill.level} />
                 </div>
               ))}
             </div>

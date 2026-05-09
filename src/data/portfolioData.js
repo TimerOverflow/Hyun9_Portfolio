@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "정현구",
     englishName: "Hyungu Jeong",
     role: "Embedded / Firmware Engineer",
-    description: "14년 차 임베디드 및 차량용 소프트웨어 엔지니어입니다. AutoSAR 기반 개발 및 CI/CD 파이프라인 구축에 강점을 가지고 있습니다.",
+    description: "안녕하세요 14년 차 임베디드 소프트웨어 엔지니어입니다. AUTOSAR 기반 개발 및 CI/CD 파이프라인 구축에 강점을 가지고 있습니다.",
     github: "https://github.com/TimerOverflow",
     phone: "010-4720-9421",
     email: "38400bps@gmail.com"
@@ -25,9 +25,30 @@ export const portfolioData = {
     }
   ],
   skills: {
-    board: ["STM32", "NXP S32K", "Aurix TC3xx", "Renesas", "Atmel"],
-    language: ["C", "C++", "C#", "Python", "PowerShell"],
-    tools: ["AutoSAR (Mobilgene)", "Trace32", "GitLab CI/CD", "Docker", "CANoe", "ASPICE"]
+    board: [
+      { name: "STM, STM32", level: 3 },
+      { name: "STM, SPC58", level: 3 },
+      { name: "TI, AWRx", level: 2 },
+      { name: "Microchip, AVR8", level: 3 },
+      { name: "Microchip, AVR8-XMEGA", level: 3 },
+      { name: "Advanced Digital Chips, AdStar", level: 3 },
+    ],
+    language: [
+      { name: "C", level: 3 },
+      { name: "C++", level: 2 },
+      { name: "C#", level: 2 },
+      { name: "Python", level: 2 },
+    ],
+    tools: [
+      { name: "AUTOSAR Classic Platform", level: 2 },
+      { name: "Mobilgene Studio", level: 2 },
+      { name: "Trace32", level: 2 },
+      { name: "Git", level: 2 },
+      { name: "GitLab CI/CD", level: 2 },
+      { name: "PowerShell", level: 2 },
+      { name: "CANoe", level: 2 },
+      { name: "ASPICE", level: 2 }
+    ]
   },
   projects: [
     {
@@ -39,17 +60,17 @@ export const portfolioData = {
         {
           label: "Overview",
           content: [
-            "소개 : AutoSAR 기반 바디 도메인 편의 제어기(ECU)의 SW 개발 및 양산 업무를 수행하면서 경험한 내용",
+            "소개 : AUTOSAR 기반 바디 도메인 편의 제어기(ECU)의 SW 개발 및 양산 업무를 수행하면서 경험한 내용",
             "기간 : 2023/02 ~ 2026/03",
             "근무처 : 엠씨넥스",
             "담당 역할 : Software Developer",
-            "기술 : `C`, `AutoSAR`, `Mobilgene Studio`, `Trace32`, `STM SPC58 Series MCU`, `ASPICE`, `Git`"
+            "기술 : `C`, `AUTOSAR`, `Mobilgene Studio`, `Trace32`, `STM SPC58 Series MCU`, `ASPICE`, `Git`"
           ]
         },
         {
           label: "Implementation & Achievements",
           content: [
-            { type: 'header', text: 'Mobilgene Studio를 이용한 AutoSAR 설정', icon: '⚙️' },
+            { type: 'header', text: 'Mobilgene Studio를 이용한 AUTOSAR 설정', icon: '⚙️' },
             {
               type: 'bullet',
               text: "기능 요구사항 구현을 위해 BSW Cofiguration 수행 (`BswM`, `NvM Stack`, `Dcm`, `Com Stack` …)",
@@ -219,7 +240,7 @@ export const portfolioData = {
                 { type: 'subTitle', text: '문제 현상' },
                 {
                   type: 'bullet',
-                  text: "현대오토에버가 전개한 AutoSAR 플랫폼 수평전개 적용 이후, 기능 테스트 과정에서 타 제어기와의 주요 연동 기능이 동작하지 않는 통신 결함 발생.",
+                  text: "현대오토에버가 전개한 AUTOSAR 플랫폼 수평전개 적용 이후, 기능 테스트 과정에서 타 제어기와의 주요 연동 기능이 동작하지 않는 통신 결함 발생.",
                 },
                 {
                   type: 'bullet',
@@ -289,7 +310,7 @@ export const portfolioData = {
           ]
         }
       ],
-      stack: ["AutoSAR", "C", "Mobilgene Studio", "Trace32"]
+      stack: ["AUTOSAR", "C", "Mobilgene Studio", "Trace32"]
     },
     {
       id: 2,
@@ -492,14 +513,14 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
     },
     {
       id: 3,
-      title: "AutoSAR NM 모듈 개발",
+      title: "AUTOSAR NM 모듈 개발",
       period: "2025/10 ~ 2026/02",
       role: "Software Developer",
       details: [
         {
           label: "Overview",
           content: [
-            "소개 : AutoSAR 표준 SWS 기반의 Network Management 모듈 자체 개발 및 NM 알고리즘/구조 기술 내재화 사례",
+            "소개 : AUTOSAR 표준 SWS 기반의 Network Management 모듈 자체 개발 및 NM 알고리즘/구조 기술 내재화 사례",
             "기간 : 2025/10 ~ 2026/02",
             "근무처 : 엠씨넥스",
             "담당 역할 : Software Developer",
@@ -512,7 +533,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
             { type: 'header', text: '표준 사양 기반 설계 및 추적성 확보', icon: '📝' },
             {
               type: 'bullet',
-              text: "AutoSAR 표준 SWS(Software Specification)를 분석하여 Nm 모듈에 대한 소프트웨어 요구사항을 상세히 명세함.",
+              text: "AUTOSAR 표준 SWS(Software Specification)를 분석하여 Nm 모듈에 대한 소프트웨어 요구사항을 상세히 명세함.",
             },
             {
               type: 'bullet',
@@ -585,7 +606,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
           ]
         }
       ],
-      stack: ["AutoSAR", "C", "ALM"]
+      stack: ["AUTOSAR", "C", "ALM"]
     },
     {
       id: 4,
