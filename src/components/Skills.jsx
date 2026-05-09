@@ -1,95 +1,183 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { portfolioData } from '../data/portfolioData';
 
+const SkillIcon = ({ type }) => {
+  if (type === 'board') {
+    return (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-primary)' }}>
+        <rect x="5" y="5" width="14" height="14" rx="1" />
+        <path d="M9 1v4M15 1v4M9 19v4M15 19v4M23 9h-4M23 15h-4M5 9H1M5 15H1" />
+      </svg>
+    );
+  }
+  if (type === 'language') {
+    return (
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-primary)' }}>
+        <polyline points="4 17 10 11 4 5"></polyline>
+        <line x1="12" y1="19" x2="20" y2="19"></line>
+      </svg>
+    );
+  }
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-primary)' }}>
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+    </svg>
+  );
+};
+
+const HeaderIcon = ({ type }) => {
+  if (type === 'board') {
+    return (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-primary)' }}>
+        <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+        <rect x="9" y="9" width="6" height="6"></rect>
+        <line x1="9" y1="1" x2="9" y2="4"></line>
+        <line x1="15" y1="1" x2="15" y2="4"></line>
+        <line x1="9" y1="20" x2="9" y2="23"></line>
+        <line x1="15" y1="20" x2="15" y2="23"></line>
+        <line x1="20" y1="9" x2="23" y2="9"></line>
+        <line x1="20" y1="14" x2="23" y2="14"></line>
+        <line x1="1" y1="9" x2="4" y2="9"></line>
+        <line x1="1" y1="14" x2="4" y2="14"></line>
+      </svg>
+    );
+  }
+  if (type === 'language') {
+    return (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-primary)' }}>
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+    );
+  }
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ color: 'var(--accent-primary)' }}>
+      <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+    </svg>
+  );
+};
+
+const LevelIndicator = ({ level = 3 }) => {
+  return (
+    <div style={{ display: 'flex', gap: '8px' }}>
+      {[1, 2, 3].map((i) => (
+        <div
+          key={i}
+          style={{
+            width: '18px',
+            height: '5px',
+            borderRadius: '2px',
+            backgroundColor: i <= level ? 'var(--accent-primary)' : 'var(--border-color)',
+            opacity: i <= level ? 1 : 0.3,
+            boxShadow: i <= level 
+              ? '0 0 5px var(--accent-primary), 0 0 10px var(--accent-primary)' 
+              : 'none',
+            transition: 'all 0.3s ease',
+          }}
+        />
+      ))}
+    </div>
+  );
+};
+
 const Skills = () => {
-  const [activeTab, setActiveTab] = useState('board');
-  const tabs = [
-    { id: 'board', label: 'Board / Hardware' },
-    { id: 'language', label: 'Languages / Frameworks' },
-    { id: 'tools', label: 'Tools / Others' }
+  const categories = [
+    { id: 'language', title: 'SOFTWARE & PROTOCOL' },
+    { id: 'board', title: 'BOARD & HARDWARE' },
+    { id: 'tools', title: 'TOOLS & INFRASTRUCTURE' }
   ];
 
+  const getLevel = (skillName) => {
+    const length = skillName.length;
+    return (length % 3) + 1; 
+  };
+
   return (
-    <section id="skills" className="container" style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '24px', padding: '80px 40px', marginTop: '40px' }}>
-      <h2 className="section-title text-gradient">SKILLS</h2>
+    <section id="skills" className="container" style={{ marginTop: '40px' }}>
+      <h2 className="section-title text-gradient" style={{ marginBottom: '3rem' }}>SKILLS</h2>
 
-      <div style={styles.tabsContainer}>
-        <div style={styles.tabList}>
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              style={{
-                ...styles.tabButton,
-                ...(activeTab === tab.id ? styles.activeTab : {})
-              }}
-              onClick={() => setActiveTab(tab.id)}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+      <div style={styles.gridContainer}>
+        {categories.map((cat) => (
+          <div key={cat.id} className="glass-card" style={styles.card}>
+            <div style={styles.cardHeader}>
+              <HeaderIcon type={cat.id} />
+              <h3 style={styles.cardTitle}>{cat.title}</h3>
+            </div>
+            
+            <div style={styles.divider}></div>
 
-        <div className="glass-card" style={styles.tabContent}>
-          <div style={styles.skillsGrid}>
-            {portfolioData.skills[activeTab].map((skill, index) => (
-              <div key={index} style={styles.skillItem}>
-                {skill}
-              </div>
-            ))}
+            <div style={styles.skillsList}>
+              {portfolioData.skills[cat.id]?.map((skill, index) => (
+                <div key={index} style={styles.skillItem}>
+                  <div style={styles.skillNameContainer}>
+                    <SkillIcon type={cat.id} />
+                    <span style={styles.skillName}>{skill}</span>
+                  </div>
+                  <LevelIndicator level={getLevel(skill)} />
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
+        ))}
       </div>
     </section>
   );
 };
 
 const styles = {
-  tabsContainer: {
-    maxWidth: '800px',
-    margin: '0 auto',
+  gridContainer: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+    gap: '24px',
+    width: '100%',
   },
-  tabList: {
+  card: {
     display: 'flex',
-    justifyContent: 'center',
-    gap: '1rem',
-    marginBottom: '2rem',
-    flexWrap: 'wrap',
+    flexDirection: 'column',
+    padding: '32px 24px',
+    backgroundColor: 'var(--card-bg)',
+    borderRadius: '16px',
+    boxShadow: 'var(--shadow-md)',
   },
-  tabButton: {
-    padding: '0.75rem 1.5rem',
-    borderRadius: '999px',
-    border: '1px solid var(--border-color)',
-    background: 'transparent',
-    color: 'var(--text-primary)',
-    fontWeight: 500,
-    cursor: 'pointer',
-    transition: 'var(--transition)',
-    fontSize: '0.9rem',
-  },
-  activeTab: {
-    background: 'var(--accent-gradient)',
-    color: 'white',
-    borderColor: 'transparent',
-  },
-  tabContent: {
-    minHeight: '200px',
+  cardHeader: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    gap: '12px',
+    marginBottom: '16px',
   },
-  skillsGrid: {
+  cardTitle: {
+    fontSize: '1.15rem',
+    fontWeight: '700',
+    margin: 0,
+    color: 'var(--text-primary)',
+    letterSpacing: '0.5px',
+  },
+  divider: {
+    height: '1px',
+    width: '100%',
+    backgroundColor: 'var(--border-color)',
+    marginBottom: '24px',
+  },
+  skillsList: {
     display: 'flex',
-    flexWrap: 'wrap',
-    gap: '1rem',
-    justifyContent: 'center',
+    flexDirection: 'column',
+    gap: '20px',
   },
   skillItem: {
-    background: 'var(--bg-primary)',
-    padding: '0.5rem 1rem',
-    borderRadius: '8px',
-    border: '1px solid var(--border-color)',
-    fontWeight: 500,
-    boxShadow: 'var(--shadow-sm)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  skillNameContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+  },
+  skillName: {
+    fontSize: '0.95rem',
+    fontWeight: '500',
+    color: 'var(--text-primary)',
   }
 };
 
