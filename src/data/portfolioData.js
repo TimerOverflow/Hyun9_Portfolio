@@ -5,7 +5,7 @@ export const portfolioData = {
     role: "Embedded / Firmware Engineer",
     description: "14년 차 임베디드 및 차량용 소프트웨어 엔지니어입니다. AutoSAR 기반 개발 및 CI/CD 파이프라인 구축에 강점을 가지고 있습니다.",
     github: "https://github.com/TimerOverflow",
-    phone: "+82 10 4720 9421",
+    phone: "010-4720-9421",
     email: "38400bps@gmail.com"
   },
   experience: [
