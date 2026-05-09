@@ -407,7 +407,7 @@ const Projects = () => {
 
 const styles = {
   accordionContainer: {
-    maxWidth: '1000px',
+    maxWidth: '1050px',
     margin: '0 auto',
     display: 'flex',
     flexDirection: 'column',
@@ -491,14 +491,14 @@ const styles = {
     minWidth: 0,
   },
   subtitle: {
-    fontSize: '0.9rem',
-    fontWeight: '700',
+    fontSize: '1.1rem',
+    fontWeight: '800',
     color: 'var(--detail-label-color)',
-    borderLeft: '3px solid var(--detail-label-color)',
-    paddingLeft: '12px',
+    borderLeft: '4px solid var(--detail-label-color)',
+    paddingLeft: '14px',
     margin: 0,
     display: 'inline-block',
-    lineHeight: '1.8',
+    lineHeight: '1.6',
     textDecoration: 'underline',
     textUnderlineOffset: '6px',
   },
@@ -653,9 +653,9 @@ const styles = {
   },
   toggleSubTitle: {
     fontWeight: '700',
-    fontSize: '0.9rem',
+    fontSize: '1.05rem',
     color: 'var(--detail-label-color)',
-    margin: '0.75rem 0 0.25rem',
+    margin: '1.25rem 0 0.5rem',
   },
   bulletItemRow: {
     display: 'flex',
