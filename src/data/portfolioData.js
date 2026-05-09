@@ -54,7 +54,7 @@ export const portfolioData = {
             },
             {
               type: 'bullet',
-              text: "오토에버 플랫폼 수평전개 검토 및 패치 적용하고, 플랫폼 패치 적용 및 통합 중 발생하는 dependency 문제 원인 파악 및 해결.",
+              text: "오토에버 플랫폼 수평전개 검토 및 패치 적용하고, 패치 적용 및 통합 중 발생하는 dependency 문제 원인 파악 및 해결.",
             },
             {
               type: 'bullet',
@@ -64,7 +64,7 @@ export const portfolioData = {
               type: 'bullet',
               text: "제어기 동작 및 CAN 송수신 금지 전압 기능이 ASW에 핸드 코드로 작성 되어 있던 부분을 `CDD_CanCM` 모듈이 핸들링 하도록 플랫폼 설정 변경 및 코드 리팩토링. 그 결과 검증된 모듈을 통한 기능 구현으로 코드 안정성 향상.",
             },
-            { type: 'header', text: '고객사 SR 기반 기능 요구사항 개발을 위한 SWC 설계 및 구현', icon: '🚀' },
+            { type: 'header', text: '고객사 SR 기반 요구사항 개발을 위한 SWC 설계 및 구현', icon: '🚀' },
             {
               type: 'bullet',
               text: "제어기 주요 파라미터 상태 변수 보존을 위한 `NvM` 연동 인터페이스 설계 및 추가.",
@@ -124,23 +124,23 @@ export const portfolioData = {
                 { type: 'subTitle', text: '원인 분석 및 해결' },
                 {
                   type: 'bullet',
-                  text: "리셋 트리거 분석: Trace32를 이용하여 메인 코어의 레지스터(`F_SOFT_FUNC`) 확인 결과, Functional reset 확인.",
+                  text: "Trace32를 이용하여 메인 코어의 레지스터(`F_SOFT_FUNC`) 확인 결과, Functional reset 확인.",
                 },
                 {
                   type: 'bullet',
-                  text: "코어 간 동기화 추적: 서브 코어에서 발생한 치명적 하드웨어 예외(`Os_ImpMachineCheckException`)가 코어 간 셧다운 메시지(`OS_IC_ShutdownCore`)를 통해 메인 코어로 전달되어 전체 시스템 셧다운 유도.",
+                  text: "서브 코어에서 발생한 치명적 하드웨어 예외(`Os_ImpMachineCheckException`)가 코어 간 셧다운 메시지(`OS_IC_ShutdownCore`)를 통해 메인 코어로 전달되어 전체 시스템 셧다운 유도.",
                 },
                 {
                   type: 'bullet',
-                  text: "어셈블리 및 레지스터 분석: 코어의 `MCSR` 레지스터 분석을 통해 Instruction Fetch Error 확인. 에러 발생 지점 주소를 저장한 레지스터 확인 결과 특정 기능 실행을 위한 정보를 플래시 메모리에서 읽어오는 `memcpy` 명령어임을 특정.",
+                  text: "코어의 `MCSR` 레지스터 분석을 통해 Instruction Fetch Error 확인. 에러 발생 지점 주소를 저장한 레지스터 확인 결과 특정 기능 실행을 위한 정보를 플래시 메모리에서 읽어오는 `memcpy` 명령어임을 특정.",
                 },
                 {
                   type: 'bullet',
-                  text: "근본 원인: 백그라운드 OTA Task가 플래시 메모리 영역을 지우고 쓰는 동시에, 특정 기능 실행을 위한 데이터를 읽으려 시도하면서 플래시 메모리 컨트롤러의 Read-While-Write (RWW) 충돌 발생.",
+                  text: "백그라운드 OTA Task가 플래시 메모리 영역을 지우고 쓰는 동시에, 특정 기능 실행을 위한 데이터를 읽으려 시도하면서 플래시 메모리 컨트롤러의 Read-While-Write (RWW) 충돌 발생.",
                 },
                 {
                   type: 'bullet',
-                  text: "방어 코드 적용: 플래시 메모리의 워킹 상태를 확인하고 read 또는 write와 같은 요청을 처리하도록 예외 처리 추가. (`idle` / `busy`)",
+                  text: "플래시 메모리의 워킹 상태를 확인하고 read 또는 write와 같은 요청을 처리하도록 예외 처리 추가. (`idle` / `busy`)",
                 },
                 { type: 'subTitle', text: '결과' },
                 {
@@ -226,7 +226,7 @@ export const portfolioData = {
                 { type: 'subTitle', text: '원인 분석 및 해결' },
                 {
                   type: 'bullet',
-                  text: "통신 스택 상태 추적: App 메시지의 주기적 송신을 담당하는 `Com_MainFunctionTx()` 함수가 정상 동작하려면 내부 상태 배열(`Com_GaaTxIpduStatus[]`)이 활성화(1)되어야 하나, 디버깅 결과 문제 버전에서는 해당 값이 모두 비활성화(0)로 초기화.",
+                  text: "App 메시지의 주기적 송신을 담당하는 `Com_MainFunctionTx()` 함수가 정상 동작하려면 내부 상태 배열(`Com_GaaTxIpduStatus[]`)이 활성화(1)되어야 하나, 디버깅 결과 문제 버전에서는 해당 값이 모두 비활성화(0)로 초기화.",
                 },
                 {
                   type: 'bullet',
@@ -238,20 +238,20 @@ export const portfolioData = {
                 },
                 {
                   type: 'bullet',
-                  text: "포럼 리서치를 통한 레퍼런스 확보: 현대오토에버 개발자 포럼에서 이와 유사한 사례를 서치하여 트러블슈팅 가이드 확보.",
+                  text: "현대오토에버 개발자 포럼에서 이와 유사한 사례를 서치하여 트러블슈팅 가이드 확보.",
                 },
                 {
                   type: 'bullet',
-                  text: "모듈 동시 하모나이즈 적용: 확보한 가이드를 바탕으로, Com 모듈과 BswM 모듈을 함께 하모나이즈 처리. 이를 통해 제어 흐름(Rule 및 Action List)을 재구성하였고, 통신 제어 Action List가 정상적으로 I-PDU 상태 제어 인터페이스를 호출하도록 복구.",
+                  text: "확보한 가이드를 바탕으로, Com 모듈과 BswM 모듈을 함께 하모나이즈 처리. 이를 통해 제어 흐름(Rule 및 Action List)을 재구성하였고, 통신 제어 Action List가 정상적으로 I-PDU 상태 제어 인터페이스를 호출하도록 복구.",
                 },
                 { type: 'subTitle', text: '결과' },
                 {
                   type: 'bullet',
-                  text: "툴 제너레이션 예외 상황에 대한 이해: AUTOSAR 아키텍처 환경에서 개발자의 수동 설정(Configuration) 오류뿐만 아니라, 도구 자체의 자동 생성 메커니즘 버그로 인한 치명적인 결함 발생 가능성을 실무에서 체득.",
+                  text: "AUTOSAR 아키텍처 환경에서 개발자의 수동 설정(Configuration) 오류뿐만 아니라, 도구 자체의 자동 생성 메커니즘 버그로 인한 치명적인 결함 발생 가능성을 실무에서 체득.",
                 },
                 {
                   type: 'bullet',
-                  text: "BSW 로직 추적 및 구조적 디버깅 역량 강화: 블랙박스처럼 다뤄지기 쉬운 BSW 계층 내부를 코드 레벨에서 직접 역추적하며, AUTOSAR 플랫폼 아키텍처에서의 논리적인 원인 규명과 디버깅 능력 체득."
+                  text: "블랙박스처럼 다뤄지기 쉬운 BSW 계층 내부를 코드 레벨에서 직접 역추적하며, AUTOSAR 플랫폼 아키텍처에서의 논리적인 원인 규명과 디버깅 능력 체득."
                 }
               ]
             },
@@ -302,7 +302,7 @@ export const portfolioData = {
             "기간 : 2026/03 ~ 2026/04",
             "근무처 : 엠씨넥스",
             "담당 역할 : DevOps",
-            "기술 : `GitLab CI/CD`, `GitLab Runner (Windows Shell)`, `PowerShell`, `Linux (Ubuntu)`, `SMTP (사내 메일 서버)`"
+            "기술 : `GitLab CI/CD`, `GitLab Runner (Windows Shell)`, `PowerShell`, `Linux`, `SMTP (사내 메일 서버)`"
           ]
         },
         {
@@ -372,7 +372,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
             { type: 'header', text: '빌드 호스트 스토리지 볼륨 관리', icon: '💾' },
             {
               type: 'bullet',
-              text: "파이프라인의 `cleanup` 단계에 `PowerShell` 스크립트를 활용해 가장 최근 5개의 워크 스페이스는 디버깅 목적으로 남겨두고, 오래된 폴더만 자동으로 삭제하여 디스크 관리 최적화.",
+              text: "파이프라인의 `cleanup` 단계에 `PowerShell` 스크립트를 활용해 가장 최근 5개의 워크 스페이스는 디버깅 목적으로 남겨두고, 오래된 폴더만 자동으로 삭제하여 빌드 서버의 디스크 볼륨 관리 최적화.",
             },
             { type: 'header', text: '코딩 룰 정적 검증 자동화', icon: '✅' },
             {
