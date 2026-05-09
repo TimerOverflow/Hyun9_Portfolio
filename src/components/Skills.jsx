@@ -11,7 +11,7 @@ const Skills = () => {
 
   return (
     <section id="skills" className="container" style={{ backgroundColor: 'var(--bg-secondary)', borderRadius: '24px', padding: '80px 40px', marginTop: '40px' }}>
-      <h2 className="section-title text-gradient">SKILL</h2>
+      <h2 className="section-title text-gradient">SKILLS</h2>
 
       <div style={styles.tabsContainer}>
         <div style={styles.tabList}>
