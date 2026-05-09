@@ -139,10 +139,22 @@ h4 {
 }
 
 .text-gradient {
-  background: var(--accent-gradient);
+  background: linear-gradient(
+    90deg,
+    var(--accent-primary),
+    var(--accent-secondary),
+    var(--accent-primary)
+  );
+  background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+  animation: gradientFlow 2s linear infinite;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% center; }
+  100% { background-position: 200% center; }
 }
 
 /* Container */
@@ -179,7 +191,7 @@ section {
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: 2.6rem;
   margin-bottom: 3rem;
   text-align: center;
 }
