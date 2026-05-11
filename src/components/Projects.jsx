@@ -357,7 +357,10 @@ const Projects = () => {
 
   return (
     <section id="projects" className="container">
-      <h2 className="section-title text-gradient">KEY PROJECTS</h2>
+      <div className="section-header">
+        <h2 className="section-title text-gradient">KEY PROJECTS</h2>
+        <div className="title-line"></div>
+      </div>
       <div style={styles.accordionContainer}>
         {portfolioData.projects.map((project) => (
           <div key={project.id} className="glass-card" style={styles.accordionItem}>

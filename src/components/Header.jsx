@@ -5,8 +5,11 @@ const Header = () => {
   const { name, englishName, role, description, github, phone, email } = portfolioData.header;
 
   return (
-    <header style={styles.header}>
-      <h2 className="section-title text-gradient">PROFILE</h2>
+    <header className="container" style={styles.header}>
+      <div className="section-header" style={{ width: '100%' }}>
+        <h2 className="section-title text-gradient">PROFILE</h2>
+        <div className="title-line"></div>
+      </div>
       <div style={styles.container}>
         {/* Profile Image Section */}
         <div style={styles.imageWrapper}>
@@ -70,7 +73,8 @@ const Header = () => {
 
 const styles = {
   header: {
-    padding: '4rem 2rem',
+    paddingTop: '8rem',
+    paddingBottom: '8rem',
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

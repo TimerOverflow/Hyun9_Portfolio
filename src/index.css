@@ -7,6 +7,7 @@
   --text-secondary: #475569;
   --accent-primary: #4f46e5;
   --accent-secondary: #9333ea;
+  --accent-neon: #00ff88; /* Added Neon Green */
   --accent-gradient: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   --border-color: #e2e8f0;
   --card-bg: rgba(255, 255, 255, 0.8);
@@ -35,45 +36,52 @@
   --image-border: rgba(0, 0, 0, 0.15);
   --image-frame-bg: #f8fafc;
 
-  /* Badge Variables */
   --badge-bg: rgba(79, 70, 229, 0.08);
   --badge-color: #4f46e5;
   --badge-border: rgba(79, 70, 229, 0.2);
+
+  --timeline-base: rgba(79, 70, 229, 0.35);
+  --timeline-glow: 0 0 20px rgba(79, 70, 229, 0.6), 0 0 40px rgba(79, 70, 229, 0.3);
 }
 
 [data-theme='dark'] {
-  --bg-primary: #0f172a;
-  --bg-secondary: #1e293b;
+  --bg-primary: #050505; /* Deeper black */
+  --bg-secondary: #0f172a;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --border-color: #334155;
-  --card-bg: rgba(30, 41, 59, 0.7);
+  --border-color: #1e293b;
+  --card-bg: rgba(15, 23, 42, 0.7);
+  --accent-primary: #00ff88; /* Change primary accent to Neon Green in dark mode */
+  --accent-secondary: #00ccff;
+  --accent-gradient: linear-gradient(135deg, #00ff88, #00ccff);
+  
   /* Project detail area — dark theme */
-  --detail-bg: #111827;
+  --detail-bg: #050505;
   --detail-text: #e2e8f0;
   --detail-text-muted: #64748b;
   --detail-border: #1e293b;
-  --detail-card-bg: #1e293b;
-  --detail-highlight-bg: #3b1c1c;
-  --detail-highlight-color: #f87171;
+  --detail-card-bg: #0f172a;
+  --detail-highlight-bg: #1e1e1e;
+  --detail-highlight-color: #00ff88;
   --detail-label-color: #f1f5f9;
 
   /* Scrollbar Theme Variables (Dark Mode) */
   --scrollbar-track: rgba(255, 255, 255, 0.05);
-  --scrollbar-thumb: rgba(255, 255, 255, 0.2);
-  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.4);
+  --scrollbar-thumb: rgba(0, 255, 136, 0.2);
+  --scrollbar-thumb-hover: rgba(0, 255, 136, 0.4);
 
   /* Image Theme Variables (Dark Mode) - Dim bright images slightly */
   --image-filter: brightness(0.92) contrast(1.03);
   --image-opacity: 0.95;
-  --image-border: rgba(255, 255, 255, 0.25);
+  --image-border: rgba(0, 255, 136, 0.25);
   --image-frame-bg: rgba(255, 255, 255, 0.1);
 
-  /* Badge Variables (Dark Mode) - Brighter and more visible */
-  --badge-bg: rgba(129, 140, 248, 0.15);
-  --badge-color: #818cf8;
-  /* indigo-400 */
-  --badge-border: rgba(129, 140, 248, 0.3);
+  --badge-bg: rgba(0, 255, 136, 0.1);
+  --badge-color: #00ff88;
+  --badge-border: rgba(0, 255, 136, 0.3);
+
+  --timeline-base: rgba(0, 255, 136, 0.35);
+  --timeline-glow: 0 0 25px var(--accent-primary), 0 0 50px var(--accent-primary);
 }
 
 * {
@@ -106,6 +114,7 @@ body {
 .glass-card:hover {
   box-shadow: var(--shadow-lg);
   transform: translateY(-2px);
+  border-color: var(--accent-primary);
 }
 
 /* Portfolio Images (Theme Adaptive) */
@@ -125,7 +134,7 @@ body {
   filter: brightness(1) contrast(1);
   opacity: 1;
   border-color: var(--accent-primary);
-  box-shadow: 0 0 15px rgba(79, 70, 229, 0.4);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.4);
 }
 
 /* Typography Utilities */
@@ -159,14 +168,15 @@ h4 {
 
 /* Container */
 .container {
-  max-width: 1075px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 /* Page Container — 하나의 큰 둥근 카드 */
 .page-container {
-  max-width: 1155px;
+  max-width: 1280px;
   margin: 3rem auto;
   padding-bottom: 3rem;
   background: var(--card-bg);
@@ -178,64 +188,48 @@ h4 {
   -webkit-backdrop-filter: blur(12px);
 }
 
-/* Section Divider — Enhanced Modern Style with Deep Glow */
-.section-divider {
-  border: none;
+/* Section Header & Title (Left Aligned with Neon Line) */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 5.5rem; /* Increased and unified gap */
+}
+
+.section-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  white-space: nowrap;
+  margin-bottom: 0;
+  text-align: left;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+.title-line {
+  flex-grow: 1;
   height: 2px;
-  background: linear-gradient(
-    90deg, 
-    transparent 0%, 
-    var(--border-color) 15%, 
-    var(--accent-primary) 50%, 
-    var(--border-color) 85%, 
-    transparent 100%
-  );
-  margin: 6rem auto;
-  width: 90%;
-  opacity: 0.9;
+  background: linear-gradient(90deg, var(--accent-primary), transparent);
   position: relative;
   overflow: visible;
-  box-shadow: 0 0 20px rgba(79, 70, 229, 0.15);
 }
 
-.section-divider::before {
+.title-line::before {
   content: '';
   position: absolute;
+  left: 0;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
-  height: 10px;
-  background: radial-gradient(ellipse at center, rgba(79, 70, 229, 0.1) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.section-divider::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
   width: 10px;
   height: 10px;
-  background: var(--bg-primary);
-  border: 2.5px solid var(--accent-primary);
+  background: var(--accent-primary);
   border-radius: 50%;
-  box-shadow: 
-    0 0 12px var(--accent-primary),
-    0 0 25px var(--accent-primary);
-  z-index: 1;
+  box-shadow: 0 0 10px var(--accent-primary), 0 0 20px var(--accent-primary);
 }
 
 /* Sections */
 section {
-  padding: 4rem 0 4rem;
-}
-
-.section-title {
-  font-size: 2.6rem;
-  margin-bottom: 3rem;
-  text-align: center;
+  padding: 8rem 0;
 }
 
 /* Lists Reset */
@@ -265,6 +259,17 @@ ul {
 .btn-primary:hover {
   opacity: 0.9;
   transform: translateY(-1px);
+}
+
+.contact-item:hover {
+  border-color: var(--accent-primary) !important;
+  background: #111 !important;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 20px rgba(0, 255, 136, 0.2);
+}
+
+.contact-item:hover span {
+  color: var(--accent-primary);
 }
 
 /* Toggle arrow animations */
@@ -379,24 +384,49 @@ ul {
   position: relative;
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 0;
+  padding: 0; /* Removed extra padding to unify spacing */
 }
 
-/* Far Left Connector Line */
+/* Far Left Connector Line with Flowing Animation */
 .timeline-connector {
   position: absolute;
   left: 20px;
   top: 0;
   bottom: 0;
   width: 2px;
-  background: var(--accent-primary);
-  opacity: 0.3;
+  background: var(--timeline-base); /* Theme-aware base color */
+  opacity: 1;
+  overflow: hidden;
+}
+
+.timeline-connector::after {
+  content: '';
+  position: absolute;
+  top: -400px;
+  left: 0;
+  width: 100%;
+  height: 400px; /* Longer, more dramatic glow */
+  background: linear-gradient(to bottom, 
+    transparent, 
+    var(--accent-primary) 20%, 
+    #fff 50%, 
+    var(--accent-primary) 80%, 
+    transparent 100%
+  );
+  filter: blur(1px);
+  box-shadow: var(--timeline-glow); /* Theme-aware glow intensity */
+  animation: flowLine 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes flowLine {
+  0% { top: -400px; }
+  100% { top: 100%; }
 }
 
 .experience-item {
   position: relative;
   display: grid;
-  grid-template-columns: 380px 1fr;
+  grid-template-columns: 320px 1fr;
   gap: 3rem;
   margin-bottom: 6rem;
   padding-left: 60px;

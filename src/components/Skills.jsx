@@ -89,7 +89,10 @@ const Skills = () => {
 
   return (
     <section id="skills" className="container" style={{ marginTop: '40px' }}>
-      <h2 className="section-title text-gradient" style={{ marginBottom: '3rem' }}>SKILLS</h2>
+      <div className="section-header">
+        <h2 className="section-title text-gradient">SKILLS</h2>
+        <div className="title-line"></div>
+      </div>
 
       <div style={styles.gridContainer}>
         {categories.map((cat) => (
@@ -122,7 +125,7 @@ const Skills = () => {
 const styles = {
   gridContainer: {
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(350px, 1fr))',
     gap: '24px',
     width: '100%',
   },

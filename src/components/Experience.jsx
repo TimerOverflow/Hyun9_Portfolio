@@ -4,7 +4,10 @@ import { portfolioData } from '../data/portfolioData';
 const Experience = () => {
   return (
     <section id="experience" className="container">
-      <h2 className="section-title text-gradient">WORK EXPERIENCE</h2>
+      <div className="section-header">
+        <h2 className="section-title text-gradient">WORK EXPERIENCE</h2>
+        <div className="title-line"></div>
+      </div>
       
       <div className="experience-timeline">
         {/* Far Left Vertical Line */}

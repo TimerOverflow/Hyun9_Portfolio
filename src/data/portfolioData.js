@@ -48,7 +48,7 @@ export const portfolioData = {
     {
       id: 2,
       period: "2012.01 — 2023.02",
-      company: "시스트로닉스 (Sistec)",
+      company: "시스트로닉스 (Systronics)",
       dept: "기술연구소 / 제어 팀",
       role: "Senior Engineer",
       logo: "🏭",
@@ -893,5 +893,9 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
       ],
       stack: ["C", "C++", "STM32", "Modbus", "RS-485"]
     }
-  ]
+  ],
+  thankYou: {
+    title: "THANK YOU",
+    message: "여기까지 읽어주셔서 진심으로 감사드립니다.\n소중한 인연으로 뵙기를 기대합니다."
+  }
 };
