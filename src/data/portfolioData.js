@@ -2,7 +2,7 @@ export const portfolioData = {
   header: {
     name: "정현구",
     englishName: "Hyungu Jeong",
-    role: "Embedded / Firmware Engineer",
+    role: "Embedded / Software Engineer",
     description: "안녕하세요 14년 차 임베디드 소프트웨어 엔지니어입니다. AUTOSAR 기반 개발 및 CI/CD 파이프라인 구축에 강점을 가지고 있습니다.",
     github: "https://github.com/TimerOverflow",
     phone: "010-4720-9421",
@@ -14,8 +14,9 @@ export const portfolioData = {
       period: "2023.02 — PRESENT",
       company: "엠씨넥스 (MCNEX)",
       dept: "전장연구소 / 플랫폼 SW팀",
-      role: "Software Developer",
-      logo: "🚗",
+      role: "수석연구원",
+      task: "플랫폼 소프트웨어 설계 및 개발",
+      logo: "SampleImage.png",
       description: "차량용 전장 부품 및 자율주행 센서 모듈 분야의 글로벌 선도 기업입니다.",
       achievements: [
         {
@@ -48,10 +49,11 @@ export const portfolioData = {
     {
       id: 2,
       period: "2012.01 — 2023.02",
-      company: "시스트로닉스 (Systronics)",
-      dept: "기술연구소 / 제어 팀",
-      role: "Senior Engineer",
-      logo: "🏭",
+      company: "시스트로닉스 (SYSTRONICS)",
+      dept: "기술연구소 / SW개발팀",
+      role: "과장",
+      task: "산업용 제어 시스템 펌웨어 개발",
+      logo: "SampleImage.png",
       description: "산업용 제어 시스템 및 임베디드 펌웨어 솔루션 전문 기업입니다.",
       achievements: [
         {
