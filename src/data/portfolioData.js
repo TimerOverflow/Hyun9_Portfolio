@@ -16,7 +16,7 @@ export const portfolioData = {
       dept: "전장연구소 / 플랫폼 SW팀",
       role: "수석연구원",
       task: "플랫폼 소프트웨어 설계 및 개발",
-      logo: "SampleImage.png",
+      logo: "logo_mcnex.jpg",
       description: "차량용 전장 부품 및 자율주행 센서 모듈 분야의 글로벌 선도 기업입니다.",
       achievements: [
         {
@@ -53,7 +53,7 @@ export const portfolioData = {
       dept: "기술연구소 / SW개발팀",
       role: "과장",
       task: "산업용 제어 시스템 펌웨어 개발",
-      logo: "SampleImage.png",
+      logo: "logo_systronics.png",
       description: "산업용 제어 시스템 및 임베디드 펌웨어 솔루션 전문 기업입니다.",
       achievements: [
         {
