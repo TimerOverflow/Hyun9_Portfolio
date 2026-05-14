@@ -15,9 +15,9 @@ export const portfolioData = {
       company: "엠씨넥스 (MCNEX)",
       dept: "전장연구소 / 플랫폼 SW팀",
       role: "수석연구원",
-      task: "플랫폼 소프트웨어 설계 및 개발",
+      task: "차량용 ECU Embedded SW 설계 및 개발",
       logo: "logo_mcnex.jpg",
-      description: "차량용 전장 부품 및 자율주행 센서 모듈 분야의 글로벌 선도 기업입니다.",
+      description: "모바일 카메라 및 차량용 카메라 모듈 분야를 선도하는 기업으로 삼성전자, 현대기아 자동차의 Tier1 협력사입니다. \n(매출 : 12,000억원, 임직원 : 500명)",
       achievements: [
         {
           date: "2024.01 — 2024.03",
@@ -52,9 +52,9 @@ export const portfolioData = {
       company: "시스트로닉스 (SYSTRONICS)",
       dept: "기술연구소 / SW개발팀",
       role: "과장",
-      task: "산업용 제어 시스템 펌웨어 개발",
+      task: "산업용 제어장치 및 HMI Embedded SW 개발",
       logo: "logo_systronics.png",
-      description: "산업용 제어 시스템 및 임베디드 펌웨어 솔루션 전문 기업입니다.",
+      description: "산업용 제어시스템을 연구·개발 및 제조하는 기업으로, 공조·환경제어 분야에서 시장 점유율 1위(40%) 업체입니다. \n(매출 : 70억원, 임직원 : 35명)",
       achievements: [
         {
           date: "2018.06 — 2023.12",

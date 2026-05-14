@@ -490,6 +490,7 @@ ul {
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
+  white-space: pre-line;
 }
 
 /* Badges */
