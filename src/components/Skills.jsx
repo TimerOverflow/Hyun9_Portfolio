@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
 
 const SkillIcon = ({ type }) => {
@@ -81,6 +81,19 @@ const LevelIndicator = ({ level = 3 }) => {
 };
 
 const Skills = () => {
+  const [showLevels, setShowLevels] = useState({
+    board: true,
+    language: true,
+    tools: true
+  });
+
+  const toggleLevel = (catId) => {
+    setShowLevels((prev) => ({
+      ...prev,
+      [catId]: !prev[catId]
+    }));
+  };
+
   const categories = [
     { id: 'language', title: 'LANGUAGE' },
     { id: 'board', title: 'MCU' },
@@ -96,7 +109,13 @@ const Skills = () => {
 
       <div style={styles.gridContainer}>
         {categories.map((cat) => (
-          <div key={cat.id} className="glass-card" style={styles.card}>
+          <div
+            key={cat.id}
+            className="glass-card"
+            style={{ ...styles.card, cursor: 'pointer', userSelect: 'none' }}
+            onClick={() => toggleLevel(cat.id)}
+            title="클릭하여 레벨 표시를 켜고 끕니다"
+          >
             <div style={styles.cardHeader}>
               <HeaderIcon type={cat.id} />
               <h3 style={styles.cardTitle}>{cat.title}</h3>
@@ -111,7 +130,7 @@ const Skills = () => {
                     <SkillIcon type={cat.id} />
                     <span style={styles.skillName}>{skill.name}</span>
                   </div>
-                  <LevelIndicator level={skill.level} />
+                  {showLevels[cat.id] && <LevelIndicator level={skill.level} />}
                 </div>
               ))}
             </div>
@@ -171,6 +190,7 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     gap: '12px',
+    flex: 1,
   },
   skillName: {
     fontSize: '0.95rem',
