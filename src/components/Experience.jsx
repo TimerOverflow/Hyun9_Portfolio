@@ -55,7 +55,10 @@ const Experience = () => {
                     className="achievement-item"
                     style={{ animationDelay: `${idx * 0.15}s` }}
                   >
-                    <h4 className="achievement-title">{ach.title}</h4>
+                    <div className="achievement-header-group">
+                      <h4 className="achievement-title">{ach.title}</h4>
+                      <div className="achievement-date">{ach.date}</div>
+                    </div>
                     <p className="achievement-desc">{ach.desc}</p>
                   </div>
                 ))}
