@@ -81,11 +81,13 @@ const LevelIndicator = ({ level = 3 }) => {
 };
 
 const Skills = () => {
-  const [showLevels, setShowLevels] = useState({
-    board: false,
-    language: false,
-    tools: false
-  });
+  const [showLevels, setShowLevels] = useState(
+    portfolioData.skills.defaultShowLevels || {
+      board: false,
+      language: false,
+      tools: false
+    }
+  );
 
   const toggleLevel = (catId) => {
     setShowLevels((prev) => ({

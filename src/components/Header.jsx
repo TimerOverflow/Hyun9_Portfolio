@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
 
 const Header = () => {
-  const { name, englishName, role, description, github, phone, email } = portfolioData.header;
-  const [showEmoji, setShowEmoji] = useState(false);
+  const { name, englishName, role, description, github, phone, email, defaultShowEmoji } = portfolioData.header;
+  const [showEmoji, setShowEmoji] = useState(defaultShowEmoji || false);
 
   return (
     <header className="container" style={styles.header}>

@@ -6,7 +6,8 @@ export const portfolioData = {
     description: "안녕하세요 AUTOSAR 기반 차량용 제어기(ECU), 산업용 제어 시스템 개발과 ASPICE 프로세스 경험을 두루 갖춘 임베디드 소프트웨어 전문가입니다",
     github: "https://github.com/TimerOverflow",
     phone: "010-4720-9421",
-    email: "38400bps@gmail.com"
+    email: "38400bps@gmail.com",
+    defaultShowEmoji: false
   },
   experience: [
     {
@@ -75,6 +76,11 @@ export const portfolioData = {
     }
   ],
   skills: {
+    defaultShowLevels: {
+      board: false,
+      language: false,
+      tools: false
+    },
     board: [
       { name: "STM, STM32", level: 3 },
       { name: "STM, SPC58", level: 3 },
