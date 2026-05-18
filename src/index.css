@@ -647,6 +647,25 @@ ul {
     width: 6px;
     height: 6px;
   }
+
+  /* Project Details Mobile Layout Fix */
+  .project-section-row {
+    flex-direction: column !important;
+    gap: 1.5rem !important;
+    padding-top: 1.5rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+  .project-section-label {
+    min-width: auto !important;
+  }
+}
+
+/* Enforce browser color scheme to prevent unwanted forced dark mode on mobile */
+:root {
+  color-scheme: light;
+}
+[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 /* Theme Toggle Button Styles & Animation */

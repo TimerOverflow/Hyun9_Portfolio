@@ -375,11 +375,11 @@ const Projects = () => {
               <div style={styles.accordionBody}>
                 {project.details.map((detail, idx) => (
                   <React.Fragment key={idx}>
-                    <div style={styles.sectionRow}>
-                      <div style={styles.sectionLabel}>
+                    <div className="project-section-row" style={styles.sectionRow}>
+                      <div className="project-section-label" style={styles.sectionLabel}>
                         <h4 style={styles.subtitle}>{detail.label}</h4>
                       </div>
-                      <div style={styles.sectionContent}>
+                      <div className="project-section-content" style={styles.sectionContent}>
                         <div style={styles.contentGroup}>
                           {detail.content.map((item, i) =>
                             renderContentBlock(item, i, `${idx}-${i}`, project)
