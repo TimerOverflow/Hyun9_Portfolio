@@ -3,7 +3,7 @@ export const portfolioData = {
     name: "정현구",
     englishName: "Hyungu Jeong",
     role: "Embedded / Software Engineer",
-    description: "안녕하세요 14년 차 임베디드 소프트웨어 엔지니어입니다. AUTOSAR 기반 개발 및 CI/CD 파이프라인 구축에 강점을 가지고 있습니다.",
+    description: "안녕하세요 AUTOSAR 기반 차량용 제어기(ECU), 산업용 제어 시스템 개발과 ASPICE 프로세스 경험을 두루 갖춘 임베디드 소프트웨어 전문가입니다",
     github: "https://github.com/TimerOverflow",
     phone: "010-4720-9421",
     email: "38400bps@gmail.com"
@@ -11,7 +11,7 @@ export const portfolioData = {
   experience: [
     {
       id: 1,
-      period: "2023.02 — PRESENT",
+      period: "2023.02 — 재직 중",
       company: "엠씨넥스 (MCNEX)",
       dept: "전장연구소 / 플랫폼 SW팀",
       role: "수석연구원",
@@ -20,29 +20,29 @@ export const portfolioData = {
       description: "모바일 카메라 및 차량용 카메라 모듈 분야를 선도하는 기업으로 삼성전자, 현대기아 자동차의 Tier1 협력사입니다. \n(매출 : 12,000억원, 임직원 : 500명)",
       achievements: [
         {
-          date: "2024.01 — 2024.03",
-          title: "Mobilgene Studio 기반 BSW 최적화",
-          desc: "AutoSAR 플랫폼의 BSW 스택 설정을 최적화하여 제어기 초기화 속도를 15% 단축하고 메모리 사용량을 효율화했습니다."
+          date: "2026년 상반기 - 진행 중",
+          title: "ISO/SAE 21434 사이버보안 평가 수행",
+          desc: "사이버보안 산출물 평가, 평가보고서 작성, 식별된 이슈 사항에 대한 문제 해결 담당자 할당 등 사이버보안 표준이 요구하는 평가자 역할 수행"
         },
         {
-          date: "2023.10 — 2023.12",
-          title: "Dcm 스택 보안 메커니즘 고도화",
-          desc: "Security Access 레벨별 False Key Attempt 카운팅 로직을 NvM에 통합하여 보안 규격 준수 및 데이터 무결성을 확보했습니다."
+          date: "2026년 상반기",
+          title: "차량용 제어기(ECU) SW CI/CD 구축 주도",
+          desc: "수동으로 진행하던 제어기 SW 빌드·배포 업무 프로세스에 Gitlab CI/CD 도입 및 파이프라인 스크립트를 작성하여 빌드 신뢰성 및 업무 효율성 개선"
         },
         {
-          date: "2023.06 — 2023.08",
-          title: "멀티코어 간 동기화 예외 처리 구현",
-          desc: "코어 간 셧다운 메시지 전달 메커니즘을 분석하여 특정 상황에서의 시스템 리셋 이슈를 해결하고 안정성을 확보했습니다."
+          date: "2025년 하반기 — 2026년 상반기",
+          title: "AUTOSAR Nm(Network Management) 스택 선행 개발",
+          desc: "Nm, CanNm 모듈을 AUTOSAR 표준을 준수하여 요구사항 분석부터 코드 구현까지 Full-Scratch 수준으로 개발 주도"
         },
         {
-          date: "2023.04 — 2023.05",
-          title: "NvM 연동 인터페이스 설계 및 추가",
-          desc: "제어기 주요 파라미터 상태 보존을 위한 NvM 관리 스택을 설계하고 상위 어플리케이션과의 인터페이스를 구현했습니다."
+          date: "2025년 중반기 — 진행 중",
+          title: "제어기(ECU) SWP 수평전개 영향성 평가 및 패치 적용 전담",
+          desc: "현대오토에버의 AUTOSAR 플랫폼 개선 수평전개 처리를 전담하여, 영향성을 분석하고 패치를 적용하여 SWP(Software Platform) 품질 개선"
         },
         {
-          date: "2023.02 — 2023.03",
-          title: "HKMC 플랫폼 수평 전개 검토",
-          desc: "차세대 제어기 플랫폼의 수평 전개 타당성을 검토하고 초기 빌드 환경을 구축하여 양산 개발의 기틀을 마련했습니다."
+          date: "2023년 상반기 — 진행 중",
+          title: "HKMC 바디 도메인 제어기(ECU) SW개발 및 양산배포",
+          desc: "AUTOSAR 기반 OTA·HSM 기능을 지원하는 제어기 SW개발. ASPICE 프로세스에 따라 4개 차종 양산 업무 수행 및 후속 차종 개발 업무 수행"
         }
       ]
     },
@@ -57,29 +57,24 @@ export const portfolioData = {
       description: "산업용 제어시스템을 연구·개발 및 제조하는 기업으로, 공조·환경제어 분야에서 시장 점유율 1위(40%) 업체입니다. \n(매출 : 70억원, 임직원 : 35명)",
       achievements: [
         {
-          date: "2018.06 — 2023.12",
-          title: "CNC 보드 공유 제어 장치 시스템 개발",
-          desc: "다중 하드웨어 인터페이스 간의 실시간 공유 제어 로직을 구현하여 시스템 안정성을 30% 향상시켰으며, 100% 독자 기술로 상용화에 성공했습니다."
+          date: "2012년 상반기 — 퇴사",
+          title: "레거시 코드 리팩터링",
+          desc: "하드웨어에 의존적인 코드와 어플리케이션 제어 로직이 혼재 되어 있던 기존 레거시 코드를 유형에 따라 분리하고, 자체 개발한 라이브러리 모듈 적용하여 리팩토링 수행. 코드 품질, 동작 안정성을 개선하고 파생되는 프로젝트의 생산성 향상"
         },
         {
-          date: "2015.01 — 2017.12",
-          title: "범용 Modbus Multi Master 중계기 설계",
-          desc: "산업용 통신 프로토콜 간의 병목 현상을 해결하기 위한 효율적인 데이터 버퍼링 알고리즘을 구축하여 신뢰성 높은 데이터 중계를 구현했습니다."
+          date: "2012년 상반기 — 퇴사",
+          title: "임베디드 소프트웨어 라이브러리 개발",
+          desc: "가나다라"
         },
         {
-          date: "2012.05 — 2014.05",
-          title: "삼성 실내 공기질 센서 모듈 펌웨어 개발",
-          desc: "미세먼지 및 가스 센서의 데이터를 정밀하게 보정하는 알고리즘을 구현하여 측정 오차 범위를 5% 이내로 줄였습니다."
+          date: "2013년 히반기 — 2014년 하반기",
+          title: "HMI(Human Machine Interface) SW 개발 주도",
+          desc: "7인치 터치스크린, RGB565 컬러 디스플레이, SD카드 마운트(FATFS), USB Mass Storage Class 기반 On-board nandflash 접근 기능을 지원하는 MCU 기반의 HMI SW 개발"
         },
         {
-          date: "2013.01 — 2013.12",
-          title: "산업용 HMI GUI 엔진 최적화",
-          desc: "제한된 리소스의 MCU 환경에서 부드러운 화면 전환을 위해 프레임 버퍼 관리 로직을 리팩토링하여 UI 응답 속도를 개선했습니다."
-        },
-        {
-          date: "2012.02 — 2012.12",
-          title: "MCU 하드웨어 브링업 및 드라이버 구축",
-          desc: "신규 타겟 보드의 UART, SPI, I2C 등 주요 페리페럴 드라이버를 풀스크래치로 구현하여 개발 생산성을 높였습니다."
+          date: "2012년 상반기 — 퇴사",
+          title: "산업용 제어 시스템 SW 개발",
+          desc: "다양한 종류의 주문형 임베디드 보드 브링업 및 "
         }
       ]
     }
