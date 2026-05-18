@@ -82,9 +82,9 @@ const LevelIndicator = ({ level = 3 }) => {
 
 const Skills = () => {
   const [showLevels, setShowLevels] = useState({
-    board: true,
-    language: true,
-    tools: true
+    board: false,
+    language: false,
+    tools: false
   });
 
   const toggleLevel = (catId) => {
