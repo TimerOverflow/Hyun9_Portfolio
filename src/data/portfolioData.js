@@ -111,7 +111,7 @@ export const portfolioData = {
       id: 1,
       title: "HKMC 바디 도메인 편의 제어기(ECU) SW 개발 및 양산",
       period: "2023/02 ~ 2026/03",
-      role: "Software Developer",
+      role: "Software Engineer",
       details: [
         {
           label: "Overview",
@@ -571,7 +571,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
       id: 3,
       title: "AUTOSAR NM 모듈 개발",
       period: "2025/10 ~ 2026/02",
-      role: "Software Developer",
+      role: "Software Engineer",
       details: [
         {
           label: "Overview",
@@ -667,7 +667,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
       id: 4,
       title: "산업용 자동제어 시스템 SW 개발",
       period: "2012/01 ~ 2023/02",
-      role: "SW Engineer",
+      role: "Software Engineer",
       details: [
         {
           label: "Overview",
