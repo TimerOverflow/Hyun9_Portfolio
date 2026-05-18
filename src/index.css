@@ -648,3 +648,63 @@ ul {
     height: 6px;
   }
 }
+
+/* Theme Toggle Button Styles & Animation */
+.theme-toggle-btn {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  zIndex: 1000;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
+  width: 96px; /* Doubled size */
+  height: 96px; /* Doubled size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem; /* Doubled size */
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  animation: themePulseLight 2s infinite;
+}
+
+.theme-toggle-icon {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.theme-toggle-btn:hover .theme-toggle-icon {
+  transform: rotate(360deg);
+}
+
+[data-theme='dark'] .theme-toggle-btn {
+  animation: themePulseDark 2s infinite;
+}
+
+@keyframes themePulseLight {
+  0% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 30px rgba(79, 70, 229, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
+  }
+}
+
+@keyframes themePulseDark {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 30px rgba(0, 255, 136, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 136, 0);
+  }
+}
