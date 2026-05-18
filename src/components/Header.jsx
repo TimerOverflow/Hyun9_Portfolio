@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
 
 const Header = () => {
   const { name, englishName, role, description, github, phone, email } = portfolioData.header;
+  const [showEmoji, setShowEmoji] = useState(false);
 
   return (
     <header className="container" style={styles.header}>
@@ -12,16 +13,28 @@ const Header = () => {
       </div>
       <div style={styles.container}>
         {/* Profile Image Section */}
-        <div style={styles.imageWrapper}>
-          <img 
-            src={`${import.meta.env.BASE_URL}Hyun9.jpg`}
-            alt="Profile" 
-            style={styles.profileImage} 
-            onError={(e) => {
-              // Fallback if image not found
-              e.target.style.display = 'none';
-            }}
-          />
+        <div 
+          style={styles.imageWrapper} 
+          onClick={() => setShowEmoji(!showEmoji)}
+          title="클릭하여 프로필 사진을 바꿔보세요!"
+        >
+          {showEmoji ? (
+            <div key="emoji" className="profile-tada-anim" style={styles.innerWrapper}>
+              <span style={styles.emoji}>🦸‍♂️</span>
+            </div>
+          ) : (
+            <div key="photo" className="profile-tada-anim" style={styles.innerWrapper}>
+              <img 
+                src={`${import.meta.env.BASE_URL}Hyun9.jpg`}
+                alt="Profile" 
+                style={styles.profileImage} 
+                onError={(e) => {
+                  // Fallback if image not found
+                  e.target.style.display = 'none';
+                }}
+              />
+            </div>
+          )}
         </div>
 
         {/* Info Section */}
@@ -95,6 +108,10 @@ const styles = {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    cursor: 'pointer',
+    backgroundColor: '#cbd5e1',
+    overflow: 'hidden',
+    transition: 'transform 0.2s',
   },
   profileImage: {
     width: '100%',
@@ -103,6 +120,18 @@ const styles = {
     objectFit: 'cover',
     objectPosition: 'center 15%', // 크롭 영역 조정 (얼굴이 더 잘 보이도록 상단 포커스)
     backgroundColor: '#cbd5e1', // Fallback color while loading or if missing
+  },
+  innerWrapper: {
+    width: '100%',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: '50%',
+  },
+  emoji: {
+    fontSize: '180px',
+    userSelect: 'none',
   },
   infoWrapper: {
     display: 'flex',
