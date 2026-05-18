@@ -491,6 +491,8 @@ ul {
   line-height: 1.6;
   margin: 0 0 1.5rem 0;
   white-space: pre-line;
+  word-break: keep-all;
+  text-align: justify;
 }
 
 /* Badges */
@@ -585,6 +587,8 @@ ul {
   color: var(--text-secondary);
   line-height: 1.6;
   margin: 0;
+  word-break: keep-all;
+  text-align: justify;
 }
 
 @keyframes slideUpFade {
