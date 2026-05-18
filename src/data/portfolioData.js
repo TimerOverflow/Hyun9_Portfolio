@@ -602,8 +602,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
                   type: 'toggle',
                   title: '예시 보기',
                   content: [
-                    { type: 'image', src: '/SampleImage.png', alt: 'Doxygen 문서화 예시 1' },
-                    { type: 'image', src: '/SampleImage.png', alt: 'Doxygen 문서화 예시 2' }
+                    { type: 'image', src: '/Img_Proj_Nm.png', alt: 'Doxygen 문서화 예시 1' }
                   ]
                 }
               ]
@@ -816,7 +815,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
                   type: 'bullet',
                   text: "HMI는 하위에 RS-485 통신으로 그룹당 최대 32대의 edge device를 모니터링 및 통제하며, 상위 제어 어플리케이션과 edge device의 통신 라우팅."
                 },
-                { type: 'image', src: '/SampleImage.png', alt: '삼성 디스플레이 장비 제어장치' }
+                { type: 'image', src: '/Img_Proj_SamsungDisplay.png', alt: '삼성 디스플레이 장비 제어장치' }
               ]
             },
             {
@@ -835,7 +834,7 @@ Notify.test_email('user@mcnex.com', 'GitLab 이메일 테스트', 'GitLab 서버
                   type: 'bullet',
                   text: "HMI는 본체 제어부와 RS-485 통신으로 인터페이스하고, 상위 관제 시스템과 통신을 중계한다."
                 },
-                { type: 'image', src: '/SampleImage.png', alt: '스마트팜 시스템 HMI 화면' }
+                { type: 'image', src: '/Img_Proj_SmartFarm.png', alt: '스마트팜 시스템 HMI 화면' }
               ]
             }
           ]
