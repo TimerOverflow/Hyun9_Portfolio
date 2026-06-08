@@ -753,3 +753,17 @@ ul {
     transform: scale(1) rotate(0deg);
   }
 }
+
+/* --- PRINT MEDIA STYLES --- */
+@media print {
+  /* 1. 접혀 있는 아코디언 및 토글 본문을 강제로 펼쳐서 인쇄 */
+  .project-accordion-body,
+  .project-toggle-body {
+    display: block !important;
+  }
+
+  /* 2. 인쇄 시 불필요한 인터랙티브 요소(배지, 화살표 등) 숨김 */
+  .print-hide {
+    display: none !important;
+  }
+}

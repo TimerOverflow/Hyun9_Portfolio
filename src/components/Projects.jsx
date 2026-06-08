@@ -36,7 +36,7 @@ const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
-      <span style={{
+      <span className="print-hide" style={{
         ...styles.toggleArrow,
         transform: isOpen ? 'rotate(90deg)' : 'rotate(0deg)',
         color: hovered ? 'var(--detail-text)' : 'var(--detail-text-muted)',
@@ -51,7 +51,7 @@ const ToggleButton = ({ isOpen, title, onClick, everOpened }) => {
         {title}
       </span>
       {!isOpen && (
-        <span style={styles.toggleBadge}>
+        <span className="print-hide" style={styles.toggleBadge}>
           ▾ 상세보기
         </span>
       )}
@@ -169,11 +169,11 @@ const AccordionHeader = ({ project, isOpen, onClick, everOpenedAccordion }) => {
       <div style={styles.headerRight}>
         <span style={styles.role}>{project.role}</span>
         {!isOpen && (
-          <span style={styles.accordionBadge}>
+          <span className="print-hide" style={styles.accordionBadge}>
             펼쳐보기
           </span>
         )}
-        <span style={{
+        <span className="print-hide" style={{
           transition: 'transform 0.3s',
           transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)',
           animation: arrowAnimation,
@@ -316,13 +316,17 @@ const Projects = () => {
             onClick={() => toggleSubItem(toggleKey)}
             everOpened={everOpened}
           />
-          {isOpen && (
-            <div style={styles.toggleBody}>
-              {item.content && item.content.map((subItem, si) =>
-                renderContentBlock(subItem, si, `${path}-${si}`, project, depth + 1)
-              )}
-            </div>
-          )}
+          <div 
+            className="project-toggle-body" 
+            style={{ 
+              ...styles.toggleBody, 
+              display: isOpen ? 'flex' : 'none' 
+            }}
+          >
+            {item.content && item.content.map((subItem, si) =>
+              renderContentBlock(subItem, si, `${path}-${si}`, project, depth + 1)
+            )}
+          </div>
         </div>
       );
     }
@@ -371,36 +375,40 @@ const Projects = () => {
               everOpenedAccordion={everOpenedAccordion}
             />
 
-            {openIds[project.id] && (
-              <div style={styles.accordionBody}>
-                {project.details.map((detail, idx) => (
-                  <React.Fragment key={idx}>
-                    <div className="project-section-row" style={styles.sectionRow}>
-                      <div className="project-section-label" style={styles.sectionLabel}>
-                        <h4 style={styles.subtitle}>{detail.label}</h4>
-                      </div>
-                      <div className="project-section-content" style={styles.sectionContent}>
-                        <div style={styles.contentGroup}>
-                          {detail.content.map((item, i) =>
-                            renderContentBlock(item, i, `${idx}-${i}`, project)
-                          )}
-                        </div>
+            <div 
+              className="project-accordion-body"
+              style={{
+                ...styles.accordionBody,
+                display: openIds[project.id] ? 'block' : 'none'
+              }}
+            >
+              {project.details.map((detail, idx) => (
+                <React.Fragment key={idx}>
+                  <div className="project-section-row" style={styles.sectionRow}>
+                    <div className="project-section-label" style={styles.sectionLabel}>
+                      <h4 style={styles.subtitle}>{detail.label}</h4>
+                    </div>
+                    <div className="project-section-content" style={styles.sectionContent}>
+                      <div style={styles.contentGroup}>
+                        {detail.content.map((item, i) =>
+                          renderContentBlock(item, i, `${idx}-${i}`, project)
+                        )}
                       </div>
                     </div>
-                    {/* 섹션 사이 구분선 */}
-                    {idx < project.details.length - 1 && (
-                      <hr style={styles.sectionDivider} />
-                    )}
-                  </React.Fragment>
-                ))}
+                  </div>
+                  {/* 섹션 사이 구분선 */}
+                  {idx < project.details.length - 1 && (
+                    <hr style={styles.sectionDivider} />
+                  )}
+                </React.Fragment>
+              ))}
 
-                <div style={styles.stackContainer}>
-                  {project.stack.map((tech, idx) => (
-                    <span key={idx} style={styles.stackBadge}>{tech}</span>
-                  ))}
-                </div>
+              <div style={styles.stackContainer}>
+                {project.stack.map((tech, idx) => (
+                  <span key={idx} style={styles.stackBadge}>{tech}</span>
+                ))}
               </div>
-            )}
+            </div>
           </div>
         ))}
       </div>
