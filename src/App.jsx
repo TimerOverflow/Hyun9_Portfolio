@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Header from './components/Header';
+import VisitorCounter from './components/VisitorCounter';
 import Experience from './components/Experience';
 import Skills from './components/Skills';
 import Projects from './components/Projects';
@@ -8,11 +9,14 @@ import ThemeToggle from './components/ThemeToggle';
 import './index.css';
 
 function App() {
+  const [showCounter, setShowCounter] = useState(false);
+
   return (
     <div className="app-container">
       <ThemeToggle />
+      <VisitorCounter show={showCounter} />
       <div className="page-container">
-        <Header />
+        <Header onProfileClick={() => setShowCounter(prev => !prev)} />
         <Skills />
         <Experience />
         <Projects />

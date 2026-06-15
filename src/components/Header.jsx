@@ -1,9 +1,16 @@
 import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolioData';
 
-const Header = () => {
+const Header = ({ onProfileClick }) => {
   const { name, englishName, role, description, github, phone, email, defaultShowEmoji } = portfolioData.header;
   const [showEmoji, setShowEmoji] = useState(defaultShowEmoji || false);
+
+  const handleProfileClick = () => {
+    setShowEmoji(!showEmoji);
+    if (onProfileClick) {
+      onProfileClick();
+    }
+  };
 
   return (
     <header className="container" style={styles.header}>
@@ -15,7 +22,7 @@ const Header = () => {
         {/* Profile Image Section */}
         <div 
           style={styles.imageWrapper} 
-          onClick={() => setShowEmoji(!showEmoji)}
+          onClick={handleProfileClick}
           title="클릭하여 프로필 사진을 바꿔보세요!"
         >
           {showEmoji ? (
