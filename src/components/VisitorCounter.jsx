@@ -1,14 +1,37 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { useVisitorCount } from '../hooks/useVisitorCount';
 
-const VisitorCounter = ({ show }) => {
+const VisitorCounter = ({ show, onSecretClick }) => {
   const visitorCount = useVisitorCount();
+  const [clickCount, setClickCount] = useState(0);
+  const clickTimeout = useRef(null);
+
+  const handleBadgeClick = () => {
+    setClickCount((prev) => {
+      const newCount = prev + 1;
+      if (newCount >= 5) {
+        if (onSecretClick) onSecretClick();
+        return 0; // 초기화
+      }
+      return newCount;
+    });
+
+    // 2초 동안 클릭이 없으면 카운트 초기화
+    if (clickTimeout.current) clearTimeout(clickTimeout.current);
+    clickTimeout.current = setTimeout(() => {
+      setClickCount(0);
+    }, 2000);
+  };
 
   if (!show) return null;
 
   return (
     <div style={styles.container} className="visitor-counter-anim">
-      <div style={styles.badge}>
+      <div 
+        style={{...styles.badge, cursor: 'pointer', userSelect: 'none'}} 
+        onClick={handleBadgeClick}
+        title="Total Visitors"
+      >
         <span style={styles.icon}>👀</span>
         <span style={styles.text}>Total Visitors</span>
         <span style={styles.count}>{visitorCount.toLocaleString()}</span>
