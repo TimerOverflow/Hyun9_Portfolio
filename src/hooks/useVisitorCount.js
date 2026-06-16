@@ -18,12 +18,19 @@ export function useVisitorCount() {
 
     const recordVisit = async () => {
       try {
-        // IP 및 위치 정보 가져오기
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        
-        const ip = data.ip || 'Unknown';
-        const location = data.city && data.country_name ? `${data.city}, ${data.country_name}` : 'Unknown';
+        // IP 및 위치 정보 가져오기 (Adblock 등에 의해 차단될 수 있으므로 개별 try-catch)
+        let ip = 'Unknown';
+        let location = 'Unknown';
+        try {
+          const response = await fetch('https://ipapi.co/json/');
+          if (response.ok) {
+            const data = await response.json();
+            ip = data.ip || 'Unknown';
+            location = data.city && data.country_name ? `${data.city}, ${data.country_name}` : 'Unknown';
+          }
+        } catch (fetchError) {
+          console.warn("IP tracking blocked or failed:", fetchError);
+        }
         
         // 환경 정보 분석
         const parser = new UAParser();
