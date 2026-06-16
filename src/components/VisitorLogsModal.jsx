@@ -50,9 +50,10 @@ const VisitorLogsModal = ({ isOpen, onClose }) => {
               <thead style={styles.thead}>
                 <tr>
                   <th style={styles.th}>No.</th>
-                  <th style={styles.th}>IP</th>
-                  <th style={styles.th}>Location</th>
+                  <th style={styles.th}>IP / ISP</th>
+                  <th style={styles.th}>Location / TZ</th>
                   <th style={styles.th}>Environment</th>
+                  <th style={styles.th}>Referrer</th>
                   <th style={styles.th}>Time</th>
                 </tr>
               </thead>
@@ -60,15 +61,29 @@ const VisitorLogsModal = ({ isOpen, onClose }) => {
                 {logs.map((log) => (
                   <tr key={log.id} style={styles.tr}>
                     <td style={styles.td}>{log.order}</td>
-                    <td style={styles.td}>{log.ip}</td>
-                    <td style={styles.td}>{log.location}</td>
-                    <td style={styles.td}>{log.os} / {log.browser}</td>
+                    <td style={styles.td}>
+                      <div>{log.ip}</div>
+                      <div style={styles.subtext}>{log.isp || '-'}</div>
+                    </td>
+                    <td style={styles.td}>
+                      <div>{log.location}</div>
+                      <div style={styles.subtext}>{log.timezone || '-'}</div>
+                    </td>
+                    <td style={styles.td}>
+                      <div>{log.os} / {log.browser}</div>
+                      <div style={styles.subtext}>
+                        {log.deviceType || 'Desktop'} ({log.screenResolution || '-'}) | {log.language || '-'}
+                      </div>
+                    </td>
+                    <td style={styles.td}>
+                      <span style={styles.badge}>{log.referrer || 'Direct'}</span>
+                    </td>
                     <td style={styles.td}>{new Date(log.timestamp).toLocaleString()}</td>
                   </tr>
                 ))}
                 {logs.length === 0 && (
                   <tr>
-                    <td colSpan="5" style={styles.empty}>No logs found.</td>
+                    <td colSpan="6" style={styles.empty}>No logs found.</td>
                   </tr>
                 )}
               </tbody>
@@ -167,6 +182,20 @@ const styles = {
   empty: {
     textAlign: 'center',
     padding: '3rem',
+    color: 'var(--text-secondary)',
+  },
+  subtext: {
+    fontSize: '0.75rem',
+    color: 'var(--text-secondary)',
+    marginTop: '0.25rem',
+  },
+  badge: {
+    display: 'inline-block',
+    padding: '0.2rem 0.5rem',
+    backgroundColor: 'var(--bg-secondary)',
+    border: '1px solid var(--border-color)',
+    borderRadius: '4px',
+    fontSize: '0.8rem',
     color: 'var(--text-secondary)',
   }
 };
