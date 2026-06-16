@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ref, get } from 'firebase/database';
+import { ref, onValue } from 'firebase/database';
 import { db } from '../lib/firebase';
 
 const VisitorLogsModal = ({ isOpen, onClose }) => {
@@ -10,23 +10,25 @@ const VisitorLogsModal = ({ isOpen, onClose }) => {
     if (isOpen) {
       setLoading(true);
       const logsRef = ref(db, 'visitor_logs');
-      get(logsRef).then((snapshot) => {
+      
+      const unsubscribe = onValue(logsRef, (snapshot) => {
         if (snapshot.exists()) {
           const data = snapshot.val();
-          // Firebase 객체를 배열로 변환하고 순서대로 정렬
           const logsArray = Object.keys(data).map(key => ({
             id: key,
             ...data[key]
-          })).sort((a, b) => (b.order || 0) - (a.order || 0)); // 최신 방문자가 위로 오도록 정렬
+          })).sort((a, b) => (b.order || 0) - (a.order || 0));
           setLogs(logsArray);
         } else {
           setLogs([]);
         }
         setLoading(false);
-      }).catch((error) => {
+      }, (error) => {
         console.error("Error fetching logs:", error);
         setLoading(false);
       });
+
+      return () => unsubscribe();
     }
   }, [isOpen]);
 
