@@ -90,7 +90,7 @@ export function useVisitorCount() {
             timestamp: new Date().toISOString()
           });
 
-          localStorage.setItem('hasVisited', 'true');
+          localStorage.setItem('hasTrackedVisit', 'true');
         }
       } catch (error) {
         console.error("Failed to record detailed visit:", error);
@@ -98,7 +98,7 @@ export function useVisitorCount() {
     };
 
     // 중복 방지 로직
-    const hasVisited = localStorage.getItem('hasVisited');
+    const hasVisited = localStorage.getItem('hasTrackedVisit');
     if (!hasVisited) {
       recordVisit();
     }
