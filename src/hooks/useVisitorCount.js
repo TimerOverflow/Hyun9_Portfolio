@@ -23,11 +23,11 @@ export function useVisitorCount() {
         let location = 'Unknown';
         let isp = 'Unknown';
         try {
-          const response = await fetch('https://ipapi.co/json/');
+          const response = await fetch('https://ipinfo.io/json');
           if (response.ok) {
             const data = await response.json();
             ip = data.ip || 'Unknown';
-            location = data.city && data.country_name ? `${data.city}, ${data.country_name}` : 'Unknown';
+            location = data.city && data.country ? `${data.city}, ${data.country}` : 'Unknown';
             isp = data.org || 'Unknown';
           }
         } catch (fetchError) {
