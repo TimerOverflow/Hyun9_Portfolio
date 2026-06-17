@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ref, onValue, runTransaction, push } from 'firebase/database';
+import { ref, onValue, runTransaction, push, get } from 'firebase/database';
 import { db } from '../lib/firebase';
 import { UAParser } from 'ua-parser-js';
 
@@ -88,6 +88,22 @@ export function useVisitorCount() {
         const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Unknown';
         const referrer = document.referrer ? new URL(document.referrer).hostname : 'Direct';
 
+        // 디지털 지문 생성 (IP + 환경 정보 조합)
+        const fingerprint = `${ip}|${os}|${browser}|${deviceType}|${screenResolution}`;
+
+        // 파이어베이스 DB에서 지문 중복 검사
+        const logsSnapshot = await get(logsRef);
+        if (logsSnapshot.exists()) {
+          const logsData = logsSnapshot.val();
+          const isDuplicate = Object.values(logsData).some(log => log.fingerprint === fingerprint);
+          
+          if (isDuplicate) {
+            console.log("Duplicate visitor fingerprint detected. Skipping recount.");
+            localStorage.setItem('hasTrackedVisit', 'true'); // 안전장치 동기화
+            return;
+          }
+        }
+
         // 카운트 증가 트랜잭션
         const txResult = await runTransaction(visitorsRef, (currentCount) => {
           return (currentCount || 0) + 1;
@@ -109,10 +125,11 @@ export function useVisitorCount() {
             language: language,
             timezone: timezone,
             referrer: referrer,
+            fingerprint: fingerprint,
             timestamp: new Date().toISOString()
           });
 
-          localStorage.setItem('isLoggedVisitor', 'true');
+          localStorage.setItem('hasTrackedVisit', 'true');
         }
       } catch (error) {
         console.error("Failed to record detailed visit:", error);
