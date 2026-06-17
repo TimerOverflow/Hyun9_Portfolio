@@ -41,13 +41,35 @@ export function useVisitorCount() {
         let osName = result.os.name || 'Unknown';
         let osVersion = result.os.version || '';
         
-        // Windows 11 정확한 판별 (Client Hints API 활용)
-        if (osName === 'Windows' && osVersion === '10' && navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
+        // iPadOS 데스크톱 모드 우회 판별 (iPad는 기본적으로 Mac OS X 10_15_7로 위장함)
+        if (osName === 'Mac OS' && navigator.maxTouchPoints > 0) {
+          osName = 'iPadOS';
+          osVersion = ''; // 버전을 알아내긴 어려움
+        }
+
+        // Windows 11, Android, macOS 실제 버전 정확한 판별 (Client Hints API 활용)
+        if (navigator.userAgentData && navigator.userAgentData.getHighEntropyValues) {
           try {
-            const uaData = await navigator.userAgentData.getHighEntropyValues(['platformVersion']);
-            const majorVersion = parseInt(uaData.platformVersion.split('.')[0], 10);
-            if (majorVersion >= 13) {
-              osVersion = '11';
+            if (osName === 'Windows' && osVersion === '10') {
+              const uaData = await navigator.userAgentData.getHighEntropyValues(['platformVersion']);
+              const majorVersion = parseInt(uaData.platformVersion.split('.')[0], 10);
+              if (majorVersion >= 13) {
+                osVersion = '11';
+              }
+            } else if (osName === 'Android' && osVersion === '10') {
+              const uaData = await navigator.userAgentData.getHighEntropyValues(['platformVersion']);
+              if (uaData.platformVersion) {
+                osVersion = uaData.platformVersion.split('.')[0];
+              }
+            } else if (osName === 'Mac OS' && osVersion === '10.15.7') {
+              // macOS 11(Big Sur) 이상부터는 UA가 10.15.7로 고정됨
+              const uaData = await navigator.userAgentData.getHighEntropyValues(['platformVersion']);
+              if (uaData.platformVersion) {
+                const majorVersion = parseInt(uaData.platformVersion.split('.')[0], 10);
+                if (majorVersion > 0) {
+                  osVersion = uaData.platformVersion.split('.')[0];
+                }
+              }
             }
           } catch (e) {
             console.warn("Client Hints API not fully supported", e);
@@ -98,8 +120,10 @@ export function useVisitorCount() {
     };
 
     // 중복 방지 로직
-    const hasVisited = localStorage.getItem('isLoggedVisitor ');
-    if (!hasVisited) {
+    const hasVisited = localStorage.getItem('hasTrackedVisit');
+    const isPending = sessionStorage.getItem('visit_pending');
+    if (!hasVisited && !isPending) {
+      sessionStorage.setItem('visit_pending', 'true');
       recordVisit();
     }
 
