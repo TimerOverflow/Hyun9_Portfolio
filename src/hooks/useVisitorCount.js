@@ -99,7 +99,7 @@ export function useVisitorCount() {
           
           if (isDuplicate) {
             console.log("Duplicate visitor fingerprint detected. Skipping recount.");
-            localStorage.setItem('hasTrackedVisit', 'true'); // 안전장치 동기화
+            localStorage.setItem('isVisitRecorded', 'true'); // 안전장치 동기화
             return;
           }
         }
@@ -129,15 +129,19 @@ export function useVisitorCount() {
             timestamp: new Date().toISOString()
           });
 
-          localStorage.setItem('hasTrackedVisit', 'true');
+          localStorage.setItem('isVisitRecorded', 'true');
         }
       } catch (error) {
         console.error("Failed to record detailed visit:", error);
       }
     };
 
-    // 중복 방지 로직
-    const hasVisited = localStorage.getItem('hasTrackedVisit');
+    // 지저분한 레거시 변수들 일괄 청소 (깔끔한 환경 유지)
+    const legacyKeys = ['hasVisited', 'hasVisitedV2', 'portfolio_tracked_visit', 'hasTrackedVisit', 'hasTrackedVisitV3', 'isLoggedVisitor'];
+    legacyKeys.forEach(key => localStorage.removeItem(key));
+
+    // 중복 방지 로직 (최종 변수명 사용)
+    const hasVisited = localStorage.getItem('isVisitRecorded');
     const isPending = sessionStorage.getItem('visit_pending');
     if (!hasVisited && !isPending) {
       sessionStorage.setItem('visit_pending', 'true');
